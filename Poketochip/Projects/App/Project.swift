@@ -9,14 +9,14 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.app(
-    name: "App",
+    name: Module.app.name,
     dependencies: [
+        Module.common,
         Module.data,
         Module.domain,
         Module.presentation,
-        Module.infrastructure
+        Module.infrastructure,
     ].map { $0.project },
     resources: .default
-
 )
 

@@ -17,6 +17,8 @@ public enum Module {
     case presentation
     /// Infrastructure
     case infrastructure
+    /// Common
+    case common
 }
 
 extension Module {
@@ -32,6 +34,8 @@ extension Module {
             return "Presentation"
         case .infrastructure:
             return "Infrastructure"
+        case .common:
+            return "Common"
         }
     }
     
@@ -40,19 +44,8 @@ extension Module {
         }
     
     public var project: TargetDependency {
-           switch self {
-           case .app:
-               return .project(target: self.name, path: self.path, condition: nil)
-           case .data:
-               return .project(target: self.name, path: self.path, condition: nil)
-           case .domain:
-               return .project(target: self.name, path: self.path, condition: nil)
-           case .presentation:
-               return .project(target: self.name, path: self.path, condition: nil)
-           case .infrastructure:
-               return .project(target: self.name, path: self.path, condition: nil)
-           }
-       }
+        return .project(target: self.name, path: self.path, condition: nil)
+    }
 }
 
 extension Module: CaseIterable { }
