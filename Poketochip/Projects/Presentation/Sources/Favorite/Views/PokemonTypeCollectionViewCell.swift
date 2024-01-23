@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 final class PokemonTypeCollectionViewCell: UICollectionViewCell {
-    static let id = "pokemonTypeCollectionViewCell"
+    static let cellId = "pokemonTypeCollectionViewCell"
     
     private let typeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -24,17 +24,20 @@ final class PokemonTypeCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setLayout()
-        setStyels()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func configureUI() {
+        setAutoLayout()
+    }
 }
 
 extension PokemonTypeCollectionViewCell {
-    private  func setLayout() {
+    private func setAutoLayout() {
         addSubviews(typeImageView, typeLabel)
         
         typeImageView.snp.makeConstraints {
@@ -47,10 +50,6 @@ extension PokemonTypeCollectionViewCell {
             $0.bottom.equalToSuperview().inset(14)
             $0.centerX.equalToSuperview()
         }
-    }
-    
-    private func setStyels() {
-        
     }
 }
 

@@ -11,7 +11,7 @@ import SnapKit
 import Kingfisher
 
 final class FavoritePokemonCollectionViewCell: UICollectionViewCell {
-    static let id = "favoritePokemonCollectionViewCell"
+    static let cellId = "favoritePokemonCollectionViewCell"
     
     private let numberLabel: UILabel = {
         let label = UILabel()
@@ -41,17 +41,20 @@ final class FavoritePokemonCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setLayout()
-        setStyles()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func configureUI() {
+        setAutoLayout()
+    }
 }
 
 extension FavoritePokemonCollectionViewCell {
-    private func setLayout() {
+    private func setAutoLayout() {
         addSubviews(numberLabel, nameLabel, pokemonTypeImageView,
                     pokemonImageView)
         
@@ -70,10 +73,6 @@ extension FavoritePokemonCollectionViewCell {
             $0.horizontalEdges.bottom.equalToSuperview().inset(12)
             $0.height.equalTo(pokemonImageView.snp.width)
         }
-    }
-    
-    private func setStyles() {
-        
     }
 }
 
