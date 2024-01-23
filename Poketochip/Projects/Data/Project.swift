@@ -19,5 +19,4 @@ let project = Project.framework(
             .SPM.swiftyJSON,
             .SPM.rxSwift
         ]
-    
 )
