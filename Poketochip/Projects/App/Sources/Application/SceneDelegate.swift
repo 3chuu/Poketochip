@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Feature
+import Presentation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = UINavigationController(rootViewController: AViewController())
+        window?.rootViewController = UINavigationController(rootViewController: DetailViewController())
         window?.makeKeyAndVisible()
     }
 

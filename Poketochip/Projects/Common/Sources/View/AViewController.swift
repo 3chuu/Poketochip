@@ -15,13 +15,5 @@ class AViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = .lightGray
-        self.view.addSubview(button)
-        button.setTitle("hi", for: .normal)
-        button.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
     }
 }

@@ -8,7 +8,8 @@
 import UIKit
 
 final class DetailStatTableViewCell: UITableViewCell {
-    static let cellIdentifier: String = "DetailStatCellIdentifier"
+    static let cellId: String = "DetailStatCellIdentifier"
+  
     // MARK: View
     private let headerLabel: UILabel = {
        let label = UILabel()
@@ -16,6 +17,7 @@ final class DetailStatTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
+  
     private let totalStatLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
@@ -40,12 +42,10 @@ final class DetailStatTableViewCell: UITableViewCell {
     
     // MARK: ConfigureUI
     private func configureUI() {
-        setHeaderLabel()
-        setTotalStatLabel()
-        setChartView()
+        setAutoLayout()
     }
     
-    func setData(_ data: SamplePokemonStat) {
+    public func setData(_ data: SamplePokemonStat) {
         let attributedString = NSMutableAttributedString(string: data.totalStat)
         
         let range = (data.totalStat as NSString).range(of: "총합:")
@@ -55,25 +55,23 @@ final class DetailStatTableViewCell: UITableViewCell {
 }
 
 extension DetailStatTableViewCell {
-    private func setHeaderLabel() {
+    private func setAutoLayout() {
         addSubview(headerLabel)
+        addSubview(totalStatLabel)
+        addSubview(chartView)
+
         headerLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
             make.leading.equalTo(16)
             make.height.equalTo(22)
         }
-    }
-    private func setTotalStatLabel() {
-        addSubview(totalStatLabel)
+        
         totalStatLabel.snp.makeConstraints { make in
             make.height.equalTo(17)
             make.bottom.equalTo(headerLabel.snp.bottom)
             make.trailing.equalToSuperview().inset(16)
         }
-    }
-    
-    private func setChartView() {
-        addSubview(chartView)
+        
         chartView.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(15)
             make.trailing.leading.equalToSuperview().inset(16)

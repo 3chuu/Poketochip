@@ -28,18 +28,20 @@ public final class DetailViewController: UIViewController {
         bind()
         configureUI()
     }
-    
 }
 
 extension DetailViewController {
     // MARK: Bind
     private func bind() {
-        
+        // rx로 이동하기
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     // MARK: ConfigureUI
     private func configureUI() {
-        setTableView()
+        setAutoLayout()
+        setAttribute()
     }
 }
 
@@ -57,31 +59,31 @@ extension DetailViewController: UITableViewDataSource {
         
         switch cellCase {
         case .main(let samplePokemon):
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailMainTableViewCell.cellIdentifier, for: indexPath) as? DetailMainTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailMainTableViewCell.cellId, for: indexPath) as? DetailMainTableViewCell else {
                 return UITableViewCell()
             }
             cell.setData(samplePokemon)
             return cell
         case .info(let samplePokemonInfo):
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailInfoTableViewCell.cellIdentifier, for: indexPath) as? DetailInfoTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailInfoTableViewCell.cellId, for: indexPath) as? DetailInfoTableViewCell else {
                 return UITableViewCell()
             }
             cell.setData(samplePokemonInfo)
             return cell
         case .acquisitionPath(let string):
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailAcquisitionTableViewCell.cellIdentifier, for: indexPath) as? DetailAcquisitionTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailAcquisitionTableViewCell.cellId, for: indexPath) as? DetailAcquisitionTableViewCell else {
                 return UITableViewCell()
             }
             cell.setData(string)
             return cell
         case .evelution(let samplePokemonEvolution):
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailEvolutionTableViewCell.cellIdentifier, for: indexPath) as? DetailEvolutionTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailEvolutionTableViewCell.cellId, for: indexPath) as? DetailEvolutionTableViewCell else {
                 return UITableViewCell()
             }
             cell.setData(samplePokemonEvolution)
             return cell
         case .stat(let samplePokemonStat):
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailStatTableViewCell.cellIdentifier, for: indexPath) as? DetailStatTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailStatTableViewCell.cellId, for: indexPath) as? DetailStatTableViewCell else {
                 return UITableViewCell()
             }
             cell.setData(samplePokemonStat)
@@ -96,18 +98,16 @@ extension DetailViewController: UITableViewDelegate {
     }
 }
 
-
 extension DetailViewController {
-    func setTableView() {
+    private func setAutoLayout() {
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        
+    }
+    
+    private func setAttribute() {
         tableView.separatorInset.top = 20
         tableView.separatorStyle = .none
         
@@ -117,11 +117,11 @@ extension DetailViewController {
         registerCell()
     }
     
-    func registerCell() {
-        tableView.register(DetailMainTableViewCell.self, forCellReuseIdentifier: DetailMainTableViewCell.cellIdentifier)
-        tableView.register(DetailInfoTableViewCell.self, forCellReuseIdentifier: DetailInfoTableViewCell.cellIdentifier)
-        tableView.register(DetailAcquisitionTableViewCell.self, forCellReuseIdentifier: DetailAcquisitionTableViewCell.cellIdentifier)
-        tableView.register(DetailEvolutionTableViewCell.self, forCellReuseIdentifier: DetailEvolutionTableViewCell.cellIdentifier)
-        tableView.register(DetailStatTableViewCell.self, forCellReuseIdentifier: DetailStatTableViewCell.cellIdentifier)
+    private func registerCell() {
+        tableView.register(DetailMainTableViewCell.self, forCellReuseIdentifier: DetailMainTableViewCell.cellId)
+        tableView.register(DetailInfoTableViewCell.self, forCellReuseIdentifier: DetailInfoTableViewCell.cellId)
+        tableView.register(DetailAcquisitionTableViewCell.self, forCellReuseIdentifier: DetailAcquisitionTableViewCell.cellId)
+        tableView.register(DetailEvolutionTableViewCell.self, forCellReuseIdentifier: DetailEvolutionTableViewCell.cellId)
+        tableView.register(DetailStatTableViewCell.self, forCellReuseIdentifier: DetailStatTableViewCell.cellId)
     }
 }

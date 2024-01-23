@@ -21,7 +21,7 @@ public final class DetailViewModel: DetailViewModelProtocol {
   var dataSouce: [DetailCellCase] {
     let info1 = DetailCellCase.main(pokemon)
     let info2 = DetailCellCase.info(pokemon.info)
-    let info3 = DetailCellCase.acquisitionPath(pokemon.획득방법)
+    let info3 = DetailCellCase.acquisitionPath(pokemon.acquisition)
     let info4 = DetailCellCase.evelution(pokemon.evolution)
     let info5 = DetailCellCase.stat(pokemon.stat)
     

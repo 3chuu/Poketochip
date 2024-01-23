@@ -15,13 +15,7 @@ class AViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.addSubview(button)
         
-        button.snp.makeConstraints { make in
-            make.centerX.equalTo(view.centerXAnchor)
-            make.centerY.equalTo(view.centerYAnchor)
-        }
         // Do any additional setup after loading the view.
     }
     

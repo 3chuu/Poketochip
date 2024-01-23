@@ -8,7 +8,7 @@
 import UIKit
 
 final class DetailEvolutionTableViewCell: UITableViewCell {
-    static let cellIdentifier: String = "DetailEvolutionCellIdentifier"
+    static let cellId: String = "DetailEvolutionCellIdentifier"
 
     // MARK: View
     private let headerLabel: UILabel = {
@@ -17,6 +17,7 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .center
@@ -37,15 +38,15 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
     
     // MARK: ConfigureUI
     private func configureUI() {
-        setHeaderLabel()
-        setStackView()
+        setAutoLayout()
+        
     }
     
-    func setData(_ data: SamplePokemonEvolution) {
+    public func setData(_ data: SamplePokemonEvolution) {
         var pokemons = data.pokemons.sorted(by: { $0.number < $1.number })
-
+        pokemons.removeLast()
         for index in 0..<pokemons.count {
-            if index > 0 && index < pokemons.count {
+            if index != 0 {
                 let imageView: UIImageView = {
                     let imageView = UIImageView()
                     imageView.image = UIImage(systemName: "chevron.right")
@@ -68,7 +69,6 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
             }()
             
             pokemonView.snp.makeConstraints { make in
-                make.width.equalTo(80)
                 make.height.equalTo(110)
             }
             
@@ -78,17 +78,16 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
 }
 
 extension DetailEvolutionTableViewCell {
-    private func setHeaderLabel() {
+    private func setAutoLayout() {
         addSubview(headerLabel)
+        addSubview(stackView)
+
         headerLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
             make.leading.equalToSuperview().inset(16)
             make.height.equalTo(22)
         }
-    }
-    
-    private func setStackView() {
-        addSubview(stackView)
+        
         stackView.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(16)

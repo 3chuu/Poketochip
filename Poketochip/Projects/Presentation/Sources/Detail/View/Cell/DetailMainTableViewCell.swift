@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class DetailMainTableViewCell: UITableViewCell {
-    static let cellIdentifier: String = "DetailMainCellIdentifier"
+    static let cellId: String = "DetailMainCellIdentifier"
     
     // MARK: View
     private let numberLabel: UILabel = {
@@ -17,35 +17,41 @@ final class DetailMainTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         return label
     }()
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
+    
     private let favoriteButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "star.fill"), for: .normal)
         button.tintColor = .gray
         return button
     }()
+    
     private let pokemonImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .systemPink
         return imageView
     }()
+    
     private let previousPokemonButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.tintColor = UIColor.lightGray
         return button
     }()
+    
     private let nextPokemonButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.tintColor = UIColor.lightGray
         return button
     }()
+    
     private let introduceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -66,7 +72,7 @@ final class DetailMainTableViewCell: UITableViewCell {
     
     // MARK: ConfigureUI()
     func configureUI() {
-        setView()
+        setAutoLayout()
     }
     
     func setData(_ data: SamplePokemon) {
@@ -78,29 +84,33 @@ final class DetailMainTableViewCell: UITableViewCell {
 }
 
 extension DetailMainTableViewCell {
-    private func setView() {
+    private func setAutoLayout() {
         addSubview(numberLabel)
+        addSubview(nameLabel)
+        addSubview(favoriteButton)
+        addSubview(pokemonImageView)
+        addSubview(previousPokemonButton)
+        addSubview(nextPokemonButton)
+        addSubview(introduceLabel)
+
         numberLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(36)
             make.leading.equalToSuperview().inset(16)
             make.height.equalTo(17)
         }
         
-        addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(numberLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
             make.height.equalTo(27)
         }
         
-        addSubview(favoriteButton)
         favoriteButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(57)
             make.trailing.equalToSuperview().inset(16)
             make.height.width.equalTo(32)
         }
         
-        addSubview(pokemonImageView)
         pokemonImageView.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
@@ -108,21 +118,18 @@ extension DetailMainTableViewCell {
             
         }
         
-        addSubview(previousPokemonButton)
         previousPokemonButton.snp.makeConstraints { make in
             make.bottom.equalTo(pokemonImageView.snp.bottom)
             make.leading.equalToSuperview().inset(18)
             make.height.equalTo(16)
         }
         
-        addSubview(nextPokemonButton)
         nextPokemonButton.snp.makeConstraints { make in
             make.bottom.equalTo(pokemonImageView.snp.bottom)
             make.trailing.equalToSuperview().inset(18)
             make.height.equalTo(16)
         }
         
-        addSubview(introduceLabel)
         introduceLabel.snp.makeConstraints { make in
             make.top.equalTo(pokemonImageView.snp.bottom).offset(23)
             make.leading.trailing.equalToSuperview().inset(16)

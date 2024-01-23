@@ -35,28 +35,13 @@ final class DetailInfoTypeView: UIView {
     required init() {
         super.init(frame: .zero)
         configureUI()
-        
     }
     
     // MARK: ConfigureUI
     private func configureUI() {
-        addSubview(infoTypeLabel)
-        infoTypeLabel.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview()
-            make.width.equalTo(59)
-        }
-        
-        addSubview(contentLabel)
-        contentLabel.snp.makeConstraints { make in
-            make.top.trailing.bottom.equalToSuperview()
-            make.leading.equalTo(infoTypeLabel.snp.trailing).offset(5)
-        }
+        setAutoLayout()
     }
     
-    
-}
-
-extension DetailInfoTypeView {
     public func setInfoType(type: DetailInfoCategory) {
         infoTypeLabel.text = type.type
         infoTypeLabel.backgroundColor = .systemPink
@@ -64,5 +49,22 @@ extension DetailInfoTypeView {
     
     public func updateContent(_ content: String) {
         contentLabel.text = content
+    }
+}
+
+extension DetailInfoTypeView {
+    private func setAutoLayout() {
+        addSubview(infoTypeLabel)
+        addSubview(contentLabel)
+
+        infoTypeLabel.snp.makeConstraints { make in
+            make.top.leading.bottom.equalToSuperview()
+            make.width.equalTo(59)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.top.trailing.bottom.equalToSuperview()
+            make.leading.equalTo(infoTypeLabel.snp.trailing).offset(5)
+        }
     }
 }

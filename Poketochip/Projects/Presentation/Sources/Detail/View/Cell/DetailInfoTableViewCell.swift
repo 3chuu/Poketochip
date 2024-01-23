@@ -8,7 +8,7 @@
 import UIKit
 
 final class DetailInfoTableViewCell: UITableViewCell {
-    static let cellIdentifier: String = "DetailInfoCellIdentifier"
+    static let cellId: String = "DetailInfoCellIdentifier"
     
     // MARK: View
     private let containerView: UIView = {
@@ -18,31 +18,37 @@ final class DetailInfoTableViewCell: UITableViewCell {
         view.layer.borderWidth = 0.5
         return view
     }()
+    
     private let categoryLabel: DetailInfoTypeView = {
         let view = DetailInfoTypeView()
         view.setInfoType(type: .category)
         return view
     }()
+    
     private let typeLabel: DetailInfoTypeView = {
         let view = DetailInfoTypeView()
         view.setInfoType(type: .type)
         return view
     }()
+    
     private let heightLabel: DetailInfoTypeView = {
         let view = DetailInfoTypeView()
         view.setInfoType(type: .height)
         return view
     }()
+    
     private let weightLabel: DetailInfoTypeView = {
         let view = DetailInfoTypeView()
         view.setInfoType(type: .weight)
         return view
     }()
+    
     private let characterLabel: DetailInfoTypeView = {
         let view = DetailInfoTypeView()
         view.setInfoType(type: .character)
         return view
     }()
+    
     private let showMoreInfoButton: UIButton = {
         let button = UIButton()
         button.setTitle("더 알아보기", for: .normal)
@@ -64,12 +70,10 @@ final class DetailInfoTableViewCell: UITableViewCell {
     
     // MARK: ConfigureUI
     private func configureUI() {
-        setContainView()
-        setLabel()
-        setShowMoreInfoButton()
+        setAutoLayout()
     }
-
-    func setData(_ data: SamplePokemonInfo) {
+    
+    public func setData(_ data: SamplePokemonInfo) {
         categoryLabel.updateContent(data.category)
         typeLabel.updateContent(data.type)
         heightLabel.updateContent("\(data.height)m")
@@ -79,61 +83,58 @@ final class DetailInfoTableViewCell: UITableViewCell {
 }
 
 extension DetailInfoTableViewCell {
-    func setContainView() {
-        addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(148)
-        }
-    }
-    
-    func setLabel() {
-        containerView.addSubview(categoryLabel)
-        categoryLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.equalToSuperview().inset(15)
-            make.height.equalTo(26)
-        }
-        
-        containerView.addSubview(heightLabel)
-        heightLabel.snp.makeConstraints { make in
-            make.top.equalTo(categoryLabel.snp.bottom).offset(15)
-            make.leading.equalToSuperview().inset(15)
-            make.height.equalTo(26)
-        }
-        
-        containerView.addSubview(characterLabel)
-        characterLabel.snp.makeConstraints { make in
-            make.top.equalTo(heightLabel.snp.bottom).offset(15)
-            make.leading.equalToSuperview().inset(15)
-            make.height.equalTo(26)
-        }
-        
+    private func setAutoLayout() {
         let halfWidth = self.bounds.width / 2
-
+        
+        addSubview(containerView)
+        containerView.addSubview(categoryLabel)
+        containerView.addSubview(heightLabel)
+        containerView.addSubview(characterLabel)
         containerView.addSubview(typeLabel)
-        typeLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.equalTo(halfWidth)
-            make.height.equalTo(26)
+        containerView.addSubview(weightLabel)
+        addSubview(showMoreInfoButton)
+        
+        containerView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(148)
         }
         
-        containerView.addSubview(weightLabel)
-        weightLabel.snp.makeConstraints { make in
-            make.top.equalTo(typeLabel.snp.bottom).offset(15)
-            make.height.equalTo(26)
-            make.leading.equalTo(halfWidth)
+        categoryLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(15)
+            $0.height.equalTo(26)
         }
-    }
-    
-    func setShowMoreInfoButton() {
-        addSubview(showMoreInfoButton)
-        showMoreInfoButton.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(15)
-            make.trailing.equalTo(containerView.snp.trailing)
-            make.height.equalTo(15)
-            make.bottom.equalToSuperview()
+        
+        heightLabel.snp.makeConstraints {
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().inset(15)
+            $0.height.equalTo(26)
+        }
+        
+        characterLabel.snp.makeConstraints {
+            $0.top.equalTo(heightLabel.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().inset(15)
+            $0.height.equalTo(26)
+        }
+       
+        typeLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.equalTo(halfWidth)
+            $0.height.equalTo(26)
+        }
+        
+        weightLabel.snp.makeConstraints {
+            $0.top.equalTo(typeLabel.snp.bottom).offset(15)
+            $0.height.equalTo(26)
+            $0.leading.equalTo(halfWidth)
+        }
+        
+        showMoreInfoButton.snp.makeConstraints {
+            $0.top.equalTo(containerView.snp.bottom).offset(15)
+            $0.trailing.equalTo(containerView.snp.trailing)
+            $0.height.equalTo(15)
+            $0.bottom.equalToSuperview()
         }
     }
 }

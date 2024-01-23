@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 
 final class DetailAcquisitionTableViewCell: UITableViewCell {
-    static let cellIdentifier: String = "DetailAcquisitionCellIdentifier"
+    static let cellId: String = "DetailAcquisitionCellIdentifier"
+    
     // MARK: View
     private let headerLabel: UILabel = {
        let label = UILabel()
@@ -17,13 +18,13 @@ final class DetailAcquisitionTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
+    
     private let contentLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
-    
     
     // MARK: Initialize Method
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -37,27 +38,25 @@ final class DetailAcquisitionTableViewCell: UITableViewCell {
     
     // MARK: ConfigureUI
     private func configureUI() {
-        setHeaderLabel()
-        setContentLabel()
+        setAutoLayout()
     }
     
-    func setData(_ data: String) {
+    public func setData(_ data: String) {
         contentLabel.text = data
     }
 }
 
 extension DetailAcquisitionTableViewCell {
-    private func setHeaderLabel() {
+    private func setAutoLayout() {
         addSubview(headerLabel)
+        addSubview(contentLabel)
+
         headerLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
             make.leading.equalTo(16)
             make.height.equalTo(22)
         }
-    }
-    
-    private func setContentLabel() {
-        addSubview(contentLabel)
+        
         contentLabel.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(16)
