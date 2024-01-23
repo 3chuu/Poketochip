@@ -1,8 +1,8 @@
 //
-//  App.swift
-//  ProjectDescriptionHelpers
+//  AppDelegate2.swift
+//  App
 //
-//  Created by 윤지호 on 12/11/23.
+//  Created by 윤지호 on 1/24/24.
 //
 
 import UIKit

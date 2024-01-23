@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  ProjectDescriptionHelpers
+//  SceneDelegate2.swift
+//  App
 //
-//  Created by 윤지호 on 12/11/23.
+//  Created by 윤지호 on 1/24/24.
 //
 
 import UIKit
@@ -34,3 +34,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {}
 }
+
