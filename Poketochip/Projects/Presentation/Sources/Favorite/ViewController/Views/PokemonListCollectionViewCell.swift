@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class FavoritePokemonCollectionViewCell: UICollectionViewCell {
-    static let cellId = "favoritePokemonCollectionViewCell"
+final class PokemonListCollectionViewCell: UICollectionViewCell {
+    static let cellId = "pokemonListCollectionViewCell"
     
     private let numberLabel: UILabel = {
         let label = UILabel()
@@ -53,7 +53,7 @@ final class FavoritePokemonCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension FavoritePokemonCollectionViewCell {
+extension PokemonListCollectionViewCell {
     private func setAutoLayout() {
         addSubviews(numberLabel, nameLabel, pokemonTypeImageView,
                     pokemonImageView)
@@ -76,7 +76,7 @@ extension FavoritePokemonCollectionViewCell {
     }
 }
 
-extension FavoritePokemonCollectionViewCell {
+extension PokemonListCollectionViewCell {
     func setCell(data: PokemonCell) {
         numberLabel.text = "No.00\(data.number)"
         nameLabel.text = data.name

@@ -27,7 +27,7 @@ final class FilteringPokemonTypeSheetViewController: BaseViewController<Filterin
         layout.scrollDirection = .vertical
         collectionView.collectionViewLayout = layout
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PokemonTypeCollectionViewCell.self, forCellWithReuseIdentifier: PokemonTypeCollectionViewCell.id)
+        collectionView.register(PokemonTypeCollectionViewCell.self, forCellWithReuseIdentifier: PokemonTypeCollectionViewCell.cellId)
         return collectionView
     }()
     
@@ -69,7 +69,7 @@ extension FilteringPokemonTypeSheetViewController: UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonTypeCollectionViewCell.id, for: indexPath) as? PokemonTypeCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonTypeCollectionViewCell.cellId, for: indexPath) as? PokemonTypeCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.setCell(data: PokemonTypeCell.types[indexPath.row])
