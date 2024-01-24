@@ -23,7 +23,7 @@ D/P와 PT에서 등장하는 장소는 천관산이다. 한자랑의 뒷마당�
     
     var info: SamplePokemonInfo = SamplePokemonInfo()
     var evolution: SamplePokemonEvolution = SamplePokemonEvolution()
-    var stat: SamplePokemonStat = SamplePokemonStat()
+    var stat: SamplePokemonStatData = SamplePokemonStatData()
 }
 
 struct SamplePokemonInfo {
@@ -56,16 +56,38 @@ struct SamplePokemonEvolution {
     }
 }
 
-struct SamplePokemonStat {
-    var 체력: Int = 80
-    var 공격: Int = 80
-    var 방어: Int = 80
-    var 특수공격: Int = 80
-    var 특수방어: Int = 80
-    var 스피드: Int = 80
+struct SamplePokemonStatData {
+    var statData: [SamplePokemonStat] = [
+        SamplePokemonStat(type: .체력, stat: 60),
+        SamplePokemonStat(type: .공격, stat: 80),
+        SamplePokemonStat(type: .방어, stat: 80),
+        SamplePokemonStat(type: .특수공격, stat: 80),
+        SamplePokemonStat(type: .특수방어, stat: 80),
+        SamplePokemonStat(type: .스피드, stat: 80),
+    ]
+    
+    var statData2: [SamplePokemonStat] = [
+        SamplePokemonStat(type: .체력, stat: 10),
+        SamplePokemonStat(type: .공격, stat: 10),
+        SamplePokemonStat(type: .방어, stat: 110),
+        SamplePokemonStat(type: .특수공격, stat: 80),
+        SamplePokemonStat(type: .특수방어, stat: 80),
+        SamplePokemonStat(type: .스피드, stat: 80),
+    ]
     
     var totalStat: String {
-        let totalStat = 체력 + 공격 + 방어 + 특수공격 + 특수방어 + 스피드
+        let totalStat = statData.reduce(0) { $0 + $1.stat }
         return "총합: \(totalStat)"
     }
+}
+
+struct SamplePokemonStat: Identifiable {
+    let id: UUID = UUID()
+    let type: SamplePokemonStatType
+    let stat: Int
+}
+
+
+enum SamplePokemonStatType: String, CaseIterable {
+  case 체력, 공격, 방어, 특수공격, 특수방어, 스피드
 }

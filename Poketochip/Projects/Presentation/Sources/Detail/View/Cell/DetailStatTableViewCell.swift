@@ -6,10 +6,18 @@
 //
 
 import UIKit
+import SwiftUI
+
+final class StateStore: ObservableObject {
+    @Published var stat: [SamplePokemonStat] = SamplePokemonStatData().statData2
+}
+
 
 final class DetailStatTableViewCell: UITableViewCell {
     static let cellId: String = "DetailStatCellIdentifier"
   
+    @ObservedObject var statStore = StateStore()
+    
     // MARK: View
     private let headerLabel: UILabel = {
        let label = UILabel()
@@ -24,15 +32,12 @@ final class DetailStatTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let chartView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemPink
-        return view
-    }()
+    private var chartView: UIHostingController<DetailStatChartView>?
     
     // MARK: Initialize Method
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        chartView = UIHostingController(rootView: DetailStatChartView(statStore: statStore))
         configureUI()
     }
     
@@ -45,12 +50,14 @@ final class DetailStatTableViewCell: UITableViewCell {
         setAutoLayout()
     }
     
-    public func setData(_ data: SamplePokemonStat) {
+    public func setData(_ data: SamplePokemonStatData) {
         let attributedString = NSMutableAttributedString(string: data.totalStat)
         
         let range = (data.totalStat as NSString).range(of: "총합:")
         attributedString.addAttributes([.font: UIFont.systemFont(ofSize: 14, weight: .regular)], range: range)
         totalStatLabel.attributedText = attributedString
+        
+        self.statStore.stat = data.statData
     }
 }
 
@@ -58,7 +65,7 @@ extension DetailStatTableViewCell {
     private func setAutoLayout() {
         addSubview(headerLabel)
         addSubview(totalStatLabel)
-        addSubview(chartView)
+        addSubview(chartView!.view)
 
         headerLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(20)
@@ -72,7 +79,7 @@ extension DetailStatTableViewCell {
             make.trailing.equalToSuperview().inset(16)
         }
         
-        chartView.snp.makeConstraints { make in
+        chartView!.view.snp.makeConstraints { make in
             make.top.equalTo(headerLabel.snp.bottom).offset(15)
             make.trailing.leading.equalToSuperview().inset(16)
             make.height.equalTo(189)
