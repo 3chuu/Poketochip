@@ -21,7 +21,7 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .center
-        stackView.distribution = .fillEqually
+        stackView.distribution = .equalSpacing
         stackView.spacing = 10
         return stackView
     }()
@@ -45,6 +45,7 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
     public func setData(_ data: SamplePokemonEvolution) {
         var pokemons = data.pokemons.sorted(by: { $0.number < $1.number })
         pokemons.removeLast()
+        
         for index in 0..<pokemons.count {
             if index != 0 {
                 let imageView: UIImageView = {
@@ -73,6 +74,19 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
             }
             
             stackView.addArrangedSubview(pokemonView)
+        }
+        
+        if pokemons.count < 3 {
+            let emptyView: UIView = UIView()
+            emptyView.snp.makeConstraints { make in
+                make.size.equalTo(14)
+            }
+            let emptyView2: UIView = UIView()
+            emptyView2.snp.makeConstraints { make in
+                make.size.equalTo(14)
+            }
+            stackView.insertArrangedSubview(emptyView, at: 0)
+            stackView.addArrangedSubview(emptyView2)
         }
     }
 }

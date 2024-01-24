@@ -51,7 +51,7 @@ extension DetailEvolutionView {
 
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-//            make.width.equalTo(59)
+            make.width.equalTo(80)
         }
         
         pokemonNameLabel.snp.makeConstraints { make in
