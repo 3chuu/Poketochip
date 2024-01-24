@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Common
 import SnapKit
 
 final class DetailMainTableViewCell: UITableViewCell {
@@ -20,7 +21,9 @@ final class DetailMainTableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 22, weight: .bold)
+        
+        // 사용 예시
+        label.font = UIFont.customFont(.bold, type: .headline01)
         return label
     }()
     
