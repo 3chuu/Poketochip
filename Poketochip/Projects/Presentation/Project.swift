@@ -11,11 +11,13 @@ import ProjectDescriptionHelpers
 let project = Project.framework(
     name: Module.presentation.name,
     dependencies:
-        [Module.domain.project] +
-        [
-            .SPM.snapKit,
-            .SPM.rxSwift,
-            .SPM.rxCocoa
-        ]
+        [Module.domain.project,
+         Module.common.project
+        ] +
+    [
+        .SPM.snapKit,
+        .SPM.rxSwift,
+        .SPM.rxCocoa
+    ]
 )
 

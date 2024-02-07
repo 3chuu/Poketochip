@@ -1,5 +1,5 @@
 //
-//  BagTableCell.swift
+//  BagTableViewCell.swift
 //  Presentation
 //
 //  Created by cha_nyeong on 2/4/24.
@@ -7,29 +7,25 @@
 
 import UIKit
 
-final class DetailStatTableViewCell: UITableViewCell {
+final class BagTableViewCell: UITableViewCell {
     static let cellId: String = "BagCellIdentifier"
-  
+    
     // MARK: View
-    private let headerLabel: UILabel = {
-       let label = UILabel()
-        label.text = "종족값"
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
-        return label
-    }()
-  
-    private let totalStatLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .bold)
-        return label
+    private let bagImageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        return imageView
     }()
     
-    private var chartView: UIHostingController<DetailStatChartView>?
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "GmarketSans-Bold", size: 14)
+        return label
+    }()
     
     // MARK: Initialize Method
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        chartView = UIHostingController(rootView: DetailStatChartView(statStore: statStore))
         configureUI()
     }
     
@@ -42,40 +38,23 @@ final class DetailStatTableViewCell: UITableViewCell {
         setAutoLayout()
     }
     
-    public func setData(_ data: SamplePokemonStatData) {
-        let attributedString = NSMutableAttributedString(string: data.totalStat)
-        
-        let range = (data.totalStat as NSString).range(of: "총합:")
-        attributedString.addAttributes([.font: UIFont.systemFont(ofSize: 14, weight: .regular)], range: range)
-        totalStatLabel.attributedText = attributedString
-        
-        self.statStore.stat = data.statData
-    }
-}
-
-extension DetailStatTableViewCell {
     private func setAutoLayout() {
-        addSubview(headerLabel)
-        addSubview(totalStatLabel)
-        addSubview(chartView!.view)
-
-        headerLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.equalTo(16)
-            make.height.equalTo(22)
+        addSubviews(bagImageView,titleLabel)
+        
+        bagImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(20)
+            $0.width.equalTo(50)
+            $0.height.equalTo(50)
         }
         
-        totalStatLabel.snp.makeConstraints { make in
-            make.height.equalTo(17)
-            make.bottom.equalTo(headerLabel.snp.bottom)
-            make.trailing.equalToSuperview().inset(16)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(bagImageView)
+            $0.leading.equalTo(bagImageView.snp.trailing).offset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(14)
         }
         
-        chartView!.view.snp.makeConstraints { make in
-            make.top.equalTo(headerLabel.snp.bottom).offset(15)
-            make.trailing.leading.equalToSuperview().inset(16)
-            make.height.equalTo(189)
-            make.bottom.equalToSuperview().inset(15)
-        }
     }
+    
 }

@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Common
+import SnapKit
 
 final class CharacterAndPartnerSectionView: BaseView {
     
-    private let view: UIView = .init()
     private let innerView: UIView = .init()
-    private let stackArrangeView: UIView = .init()
+    private let stackArrangeView1: TempPokemonView = .init(imageURL: CommonAsset.dummyPartner1.image, text: "나오하")
+    private let stackArrangeView2: TempPokemonView = .init(imageURL: CommonAsset.dummyPartner2.image, text: "뜨아거")
+    private let stackArrangeView3: TempPokemonView = .init(imageURL: CommonAsset.dummyPartner3.image, text: "꾸왁스")
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -23,8 +26,9 @@ final class CharacterAndPartnerSectionView: BaseView {
     
     private let characterImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = CommonAsset.dummyCharacter.image
         imageView.backgroundColor = .systemPink
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -36,23 +40,7 @@ final class CharacterAndPartnerSectionView: BaseView {
         label.textAlignment = .center
         return label
     }()
-    
-    private let pokemonImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .systemPink
-        imageView.contentMode = .scaleToFill
-        return imageView
-    }()
-    
-    private let pokemonLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "GmarketSans-Medium", size: 14)
-        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.text = "포켓몬"
-        label.textAlignment = .center
-        return label
-    }()
-    
+
     private let horizontalStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -83,13 +71,13 @@ final class CharacterAndPartnerSectionView: BaseView {
     override func setAutoLayout() {
         super.setAutoLayout()
         
-        view.addSubviews(titleLabel, innerView)
+        addSubviews(titleLabel, innerView)
         innerView.addSubviews(characterImage,characterLabel, horizontalStackView)
-        stackArrangeView.addSubviews(pokemonImage,pokemonLabel)
+        horizontalStackView.addArrangedSubviews(stackArrangeView1,stackArrangeView2,stackArrangeView3)
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
             $0.height.equalTo(16)
         }
         
@@ -113,23 +101,6 @@ final class CharacterAndPartnerSectionView: BaseView {
             $0.bottom.equalToSuperview()
         }
         
-        pokemonImage.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(64)
-            $0.height.equalTo(64)
-        }
-        
-        pokemonLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(24)
-        }
-        
-        for _ in 0..<3 {
-            horizontalStackView.addArrangedSubview(stackArrangeView)
-        }
         
         horizontalStackView.snp.makeConstraints {
             $0.leading.equalTo(characterImage.snp.trailing).offset(14)

@@ -8,8 +8,14 @@
 import UIKit
 import SnapKit
 
-final class BagViewController: BaseViewController<GameInformationViewModel>, UITableViewDataSource, UITableViewDelegate {
-
+final class BagViewController: BaseViewController<BagViewModel> {
+    
+    let dummyData: [(image: String, title: String)] = [
+        (image:"" ,title:"몬스터볼"),
+        (image:"" ,title:"도구"),
+        (image:"" ,title:"열매")
+    ]
+    
     private let tableView = UITableView()
     
     public override func viewDidLoad() {
@@ -33,40 +39,60 @@ final class BagViewController: BaseViewController<GameInformationViewModel>, UIT
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10)
         }
     }
+    override func bind() {
+        // Set dataSource and delegate
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
     
     /// 이외의 attributes 설정
     override func setAttributes() {
         super.setAttributes()
         
-        navigationItem.title = "DP 디아루가 가방"
-
-        // Set dataSource and delegate
-        tableView.dataSource = self
-        tableView.delegate = self
-
-    }
-}
-
-extension BagViewController {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows
-        return 10
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        navigationItem.title = "도구"
+        registerCell()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func registerCell() {
+        tableView.register(BagTableViewCell.self, forCellReuseIdentifier: BagTableViewCell.cellId)
+    }
+    
+}
+
+extension BagViewController: UITableViewDataSource, UITableViewDelegate  {
+    
+    internal func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Return the number of rows
+        return dummyData.count
+    }
+    
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath) as! YourCustomCellClass
-        
-        // Configure cell's contents, including the image view
-        cell.customImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().offset(20)
-            $0.width.equalTo(50)
-            $0.height.equalTo(50)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath) as! BagTableViewCell
         
         // Add any other constraints for the cell's content
-        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect the row to remove the selection highlight
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // Perform the segue or push to the next view controller
+        let nextViewController = BagDetailViewController(viewModel: BagViewModel()) // Replace with your destination view controller
+        navigationController?.pushViewController(nextViewController, animated: true)
+        
+        // Alternatively, if using segues in Storyboard, performSegue(withIdentifier: "YourSegueIdentifier", sender: self)
+    }
+    
 }
+
+

@@ -6,18 +6,35 @@
 //
 
 import UIKit
+import Common
+import SnapKit
 
 final class ProductInformationSectionView: BaseView {
     
-    let mainStackView: UIStackView = {
+    private let contentView1 = TempContentView(leftLabelText: "발매일", rightLabelText: "2022년 11월")
+    private let contentView2 = TempContentView(leftLabelText: "대응기기", rightLabelText: "Nintendo Switch")
+    private let contentView3 = TempContentView(leftLabelText: "게임 장르", rightLabelText: "RPG")
+    private let contentView4 = TempContentView(leftLabelText: "플레이 인원", rightLabelText: "1명")
+    private let contentView5 = TempContentView(leftLabelText: "발매원", rightLabelText: "한국닌텐도(주)")
+    private let contentView6 = TempContentView(leftLabelText: "희망소비자가격", rightLabelText: "64,800원")
+    
+    private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 25
+        stackView.spacing = 40
+        return stackView
+    }()
+    
+    // 중간 StackView 생성
+    private let middleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 30
         return stackView
     }()
     
     // 게임 정보 라벨
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "게임 정보"
         label.textColor = UIColor(red: 0.271, green: 0.298, blue: 0.325, alpha: 1)
@@ -25,23 +42,14 @@ final class ProductInformationSectionView: BaseView {
         return label
     }()
     
-    // 중간 StackView 생성
-    let middleStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        return stackView
-    }()
     
     // 관련 링크
-    let linkView: UIView = {
+    private let linkView: UIView = {
         let view = UIView()
-        
-        
         // 이미지 설정
         let imageView: UIImageView = {
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "yourImageName")
+            imageView.image = CommonAsset.chevronUpCircleOrange.image
             return imageView
         }()
         // 텍스트 설정
@@ -56,15 +64,15 @@ final class ProductInformationSectionView: BaseView {
         view.addSubviews(label, imageView)
         
         imageView.snp.makeConstraints {
-            $0.trailing.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.centerY.equalToSuperview()
             $0.height.equalTo(24)
             $0.width.equalTo(24)
         }
         
         label.snp.makeConstraints {
-            $0.trailing.equalTo(imageView.snp.leading).offset(5)
+            $0.trailing.equalTo(imageView.snp.leading)
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(14)
         }
         // Tap Gesture 추가
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
@@ -94,69 +102,15 @@ final class ProductInformationSectionView: BaseView {
     override func setAutoLayout() {
         super.setAutoLayout()
         
-        let contentView1 = createContentView(leftLabelText: "발매일", rightLabelText: "2022년 11월")
-        let contentView2 = createContentView(leftLabelText: "대응기기", rightLabelText: "Nintendo Switch")
-        let contentView3 = createContentView(leftLabelText: "게임 장르", rightLabelText: "RPG")
-        let contentView4 = createContentView(leftLabelText: "플레이 인원", rightLabelText: "1명")
-        let contentView5 = createContentView(leftLabelText: "발매원", rightLabelText: "한국닌텐도(주)")
-        let contentView6 = createContentView(leftLabelText: "희망소비자가격", rightLabelText: "64,800원")
+        addSubviews(mainStackView, middleStackView)
         
-        [contentView1,contentView2,contentView3,contentView4,contentView5,contentView6].forEach {
-            middleStackView.addArrangedSubview($0)
-        }
+        middleStackView.addArrangedSubviews(contentView1,contentView2,contentView3,contentView4,contentView5,contentView6)
         
-        [titleLabel, middleStackView, linkView].forEach {
-            mainStackView.addArrangedSubview($0)
+        mainStackView.addArrangedSubviews(titleLabel,middleStackView,linkView)
+        
+        mainStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
     
 }
-
-extension ProductInformationSectionView {
-    private func createContentView(leftLabelText: String, rightLabelText: String) -> UIView {
-        let view: UIView = {
-            let view = UIView()
-            
-            // 좌측 라벨
-            let leftLabel: UILabel = {
-                let label = UILabel()
-                label.text = leftLabelText
-                label.textAlignment = .left
-                label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-                label.font = UIFont(name: "GmarketSans-Bold", size: 14)
-                return label
-            }()
-            
-            // 우측 라벨
-            let rightLabel: UILabel = {
-                let label = UILabel()
-                label.text = rightLabelText
-                label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-                label.font = UIFont(name: "GmarketSans-Medium", size: 14)
-                label.textAlignment = .right
-                return label
-            }()
-            
-            // 각 UIView에 좌우에 라벨 추가
-            view.addSubviews(leftLabel,rightLabel)
-            
-            // SnapKit을 사용한 오토레이아웃 설정
-            leftLabel.snp.makeConstraints {
-                $0.leading.equalToSuperview()
-                $0.centerY.equalToSuperview()
-                $0.width.lessThanOrEqualTo(100)
-            }
-            
-            rightLabel.snp.makeConstraints {
-                $0.trailing.equalToSuperview()
-                $0.centerY.equalToSuperview()
-                $0.leading.equalTo(leftLabel.snp.trailing).offset(10)
-            }
-            
-            return view
-        }()
-        
-        return view
-    }
-}
-

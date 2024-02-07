@@ -16,6 +16,7 @@ enum PokemonTypeEnum: String {
     case rock = "바위"
     case bug = "벌레"
     case ghost = "고스트"
+    case steel = "강철"
     case fire = "불꽃"
     case water = "물"
     case grass = "풀"

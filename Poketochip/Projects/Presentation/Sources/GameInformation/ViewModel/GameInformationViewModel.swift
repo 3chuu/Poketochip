@@ -7,6 +7,8 @@
 
 import Foundation
 
-final class GameInformationViewModel {
-    
+public final class GameInformationViewModel {
+    public init() {
+        
+    }
 }

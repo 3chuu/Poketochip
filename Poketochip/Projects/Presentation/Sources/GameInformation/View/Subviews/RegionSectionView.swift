@@ -6,15 +6,10 @@
 //
 
 import UIKit
+import Common
+import SnapKit
 
 final class RegionSectionView: BaseView {
-    
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 12
-        return stackView
-    }()
     
     // 타이틀라벨
     private let titleLabel: UILabel = {
@@ -29,7 +24,7 @@ final class RegionSectionView: BaseView {
     // 지방이미지
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemPink
+        imageView.image = CommonAsset.dummyRegion.image
         imageView.contentMode = .scaleToFill
         return imageView
     }()
@@ -77,34 +72,30 @@ final class RegionSectionView: BaseView {
     override func setAutoLayout() {
         super.setAutoLayout()
         
-        // 이미지뷰를 감싸는 UIView 생성
-        let imageContainerView: UIView = {
-            let view = UIView()
-            view.addSubview(imageView)
-            imageView.snp.makeConstraints {
-                $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
-            }
-            return view
-        }()
-        
-        [titleLabel, imageContainerView, regionLabel, descriptionLabel].forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
-        self.addSubview(stackView)
-        
-        stackView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
-            // 필요에 따라 다른 제약 조건 추가 가능
-        }
+        addSubviews(titleLabel,imageView,regionLabel,descriptionLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.height.equalTo(16)
+            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
+        imageView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview()
+                .inset(24)
         }
         
         regionLabel.snp.makeConstraints {
-            $0.height.equalTo(12)
+            $0.top.equalTo(imageView.snp.bottom)
+                .offset(12)
+            $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
         }
         
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(regionLabel.snp.bottom)
+                .offset(12)
+            $0.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
+        }
     }
 }

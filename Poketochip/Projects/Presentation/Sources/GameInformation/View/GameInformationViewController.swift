@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Common
 import SnapKit
 
-final class GameInformationViewController: BaseViewController<GameInformationViewModel> {
+public final class GameInformationViewController: BaseViewController<GameInformationViewModel>, UIScrollViewDelegate {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -45,8 +46,10 @@ final class GameInformationViewController: BaseViewController<GameInformationVie
         return view
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -55,17 +58,18 @@ final class GameInformationViewController: BaseViewController<GameInformationVie
         super.setAutoLayout()
         
         view.addSubview(scrollView)
-        
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(legendaryPokemonSectionView,characterAndPartnerSectionView,regionSectionView,productInformationSectionView,dividerView1, dividerView2,dividerView3)
         
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+            $0.width.equalTo(view)
         }
         
         contentView.snp.makeConstraints {
             $0.edges.width.equalToSuperview()
+            $0.bottom.equalTo(productInformationSectionView.snp.bottom).offset(20)
         }
         
         legendaryPokemonSectionView.snp.makeConstraints {
@@ -105,7 +109,6 @@ final class GameInformationViewController: BaseViewController<GameInformationVie
             $0.top.equalTo(dividerView3.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
-        
     }
     
     /// 이외의 attributes 설정
@@ -113,6 +116,7 @@ final class GameInformationViewController: BaseViewController<GameInformationVie
         super.setAttributes()
         
         navigationItem.title = "DP 디아루가"
+        
     }
     
     
