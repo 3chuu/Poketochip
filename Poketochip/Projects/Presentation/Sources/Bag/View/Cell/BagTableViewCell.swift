@@ -13,7 +13,7 @@ final class BagTableViewCell: UITableViewCell {
     // MARK: View
     private let bagImageView: UIImageView = {
         let imageView = UIImageView()
-        
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -55,6 +55,11 @@ final class BagTableViewCell: UITableViewCell {
             $0.height.equalTo(14)
         }
         
+    }
+    
+    public func setData(_ data: UIImage,_ title: String) {
+        bagImageView.image = data
+        titleLabel.text = title
     }
     
 }

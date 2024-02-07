@@ -7,6 +7,9 @@
 
 import Foundation
 
-final class BagDetailViewModel {
+public final class BagDetailViewModel {
     
+    public init() {
+        
+    }
 }

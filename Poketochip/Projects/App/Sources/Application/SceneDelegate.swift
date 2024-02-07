@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = UINavigationController(rootViewController: GameInformationViewController(viewModel: GameInformationViewModel()))
+        window?.rootViewController = UINavigationController(rootViewController: BagDetailViewController(viewModel: BagDetailViewModel()))
         window?.makeKeyAndVisible()
     }
     
