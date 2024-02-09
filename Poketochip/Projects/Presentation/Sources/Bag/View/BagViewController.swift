@@ -17,7 +17,13 @@ public final class BagViewController: BaseViewController<BagViewModel> {
         (image:CommonAsset.dummyBerry.image,title:"열매")
     ]
     
-    private let tableView: UITableView = UITableView(frame: .zero)
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        return tableView
+    }()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +57,6 @@ public final class BagViewController: BaseViewController<BagViewModel> {
     override func setAttributes() {
         super.setAttributes()
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        
         navigationItem.title = "도구"
         registerCell()
     }
@@ -67,15 +70,18 @@ public final class BagViewController: BaseViewController<BagViewModel> {
 extension BagViewController: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         // Return the number of rows
         return dummyData.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as! BagTableViewCell
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as? BagTableViewCell else {
+            return BagTableViewCell()
+        }
         cell.setData(dummyData[indexPath.row].image, dummyData[indexPath.row].title)
+
         // Add any other constraints for the cell's content
         return cell
     }

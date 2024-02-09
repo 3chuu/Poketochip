@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Common
 
-final class TempContentView: UIView {
+final class TempContentView: BaseView {
     
     // 좌측 라벨
     private let leftLabel: UILabel = {
@@ -29,7 +29,7 @@ final class TempContentView: UIView {
         return label
     }()
     
-    init(leftLabelText: String, rightLabelText: String) {
+    internal init(leftLabelText: String, rightLabelText: String) {
         super.init(frame: .zero)
         
         leftLabel.text = leftLabelText
