@@ -11,14 +11,14 @@ import SnapKit
 
 public final class GameInformationViewController: BaseViewController<GameInformationViewModel>, UIScrollViewDelegate {
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = true
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
     
-    let contentView: UIView = {
+    private let contentView: UIView = {
         let contentView = UIView()
         return contentView
     }()
@@ -118,17 +118,4 @@ public final class GameInformationViewController: BaseViewController<GameInforma
         navigationItem.title = "DP 디아루가"
         
     }
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

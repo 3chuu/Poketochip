@@ -16,9 +16,15 @@ final class BagViewController: BaseViewController<BagViewModel> {
         (image:"" ,title:"열매")
     ]
     
-    private let tableView = UITableView()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        return tableView
+    }()
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -48,11 +54,7 @@ final class BagViewController: BaseViewController<BagViewModel> {
     /// 이외의 attributes 설정
     override func setAttributes() {
         super.setAttributes()
-        
-        tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        
+
         navigationItem.title = "도구"
         registerCell()
     }
@@ -65,19 +67,20 @@ final class BagViewController: BaseViewController<BagViewModel> {
 
 extension BagViewController: UITableViewDataSource, UITableViewDelegate  {
     
-    internal func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows
         return dummyData.count
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath) as! BagTableViewCell
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as? BagTableViewCell else {
+            return BagTableViewCell()
+        }
         // Add any other constraints for the cell's content
         return cell
     }

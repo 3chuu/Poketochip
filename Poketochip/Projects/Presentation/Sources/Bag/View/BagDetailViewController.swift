@@ -68,18 +68,20 @@ final class BagDetailViewController: BaseViewController<BagViewModel> {
 
 extension BagDetailViewController: UITableViewDataSource, UITableViewDelegate  {
     
-    internal func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows
         return 7
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath) as! BagDetailTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BagDetailTableViewCell.cellId, for: indexPath) as? BagDetailTableViewCell else {
+            return BagDetailTableViewCell()
+        }
         
         // Add any other constraints for the cell's content
         return cell
@@ -88,18 +90,5 @@ extension BagDetailViewController: UITableViewDataSource, UITableViewDelegate  {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Deselect the row to remove the selection highlight
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        // Alternatively, if using segues in Storyboard, performSegue(withIdentifier: "YourSegueIdentifier", sender: self)
     }
 }
-
-
-
-struct Section {
-    var title: String
-    var detail: String
-    var expanded: Bool
-    var items: [String]
-}
-

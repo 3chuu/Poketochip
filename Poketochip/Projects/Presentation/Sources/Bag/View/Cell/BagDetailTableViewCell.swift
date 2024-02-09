@@ -9,11 +9,6 @@ import UIKit
 
 final class BagDetailTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     static let cellId: String = "BagDetailCellIdentifier"
     
     // MARK: View
