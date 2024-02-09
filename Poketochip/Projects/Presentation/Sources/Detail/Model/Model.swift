@@ -58,21 +58,21 @@ struct SamplePokemonEvolution {
 
 struct SamplePokemonStatData {
     var statData: [SamplePokemonStat] = [
-        SamplePokemonStat(type: .체력, stat: 60),
-        SamplePokemonStat(type: .공격, stat: 80),
-        SamplePokemonStat(type: .방어, stat: 80),
-        SamplePokemonStat(type: .특수공격, stat: 80),
-        SamplePokemonStat(type: .특수방어, stat: 80),
-        SamplePokemonStat(type: .스피드, stat: 80),
+        SamplePokemonStat(type: .hp, stat: 60),
+        SamplePokemonStat(type: .attack, stat: 80),
+        SamplePokemonStat(type: .defense, stat: 80),
+        SamplePokemonStat(type: .specialAttack, stat: 80),
+        SamplePokemonStat(type: .specialDefense, stat: 80),
+        SamplePokemonStat(type: .speed, stat: 80),
     ]
     
     var statData2: [SamplePokemonStat] = [
-        SamplePokemonStat(type: .체력, stat: 10),
-        SamplePokemonStat(type: .공격, stat: 10),
-        SamplePokemonStat(type: .방어, stat: 110),
-        SamplePokemonStat(type: .특수공격, stat: 80),
-        SamplePokemonStat(type: .특수방어, stat: 80),
-        SamplePokemonStat(type: .스피드, stat: 80),
+        SamplePokemonStat(type: .hp, stat: 10),
+        SamplePokemonStat(type: .attack, stat: 10),
+        SamplePokemonStat(type: .defense, stat: 110),
+        SamplePokemonStat(type: .specialAttack, stat: 80),
+        SamplePokemonStat(type: .specialDefense, stat: 80),
+        SamplePokemonStat(type: .speed, stat: 80),
     ]
     
     var totalStat: String {
@@ -89,5 +89,33 @@ struct SamplePokemonStat: Identifiable {
 
 
 enum SamplePokemonStatType: String, CaseIterable {
-  case 체력, 공격, 방어, 특수공격, 특수방어, 스피드
+    /// 채력
+    case hp
+    /// 공격
+    case attack
+    /// 방어
+    case defense
+    /// 특수공격
+    case specialAttack
+    /// 특수방어
+    case specialDefense
+    /// 스피드
+    case speed
+    
+    var string: String {
+        switch self {
+        case .hp:
+            return "채력"
+        case .attack:
+            return "공격"
+        case .defense:
+            return "방어"
+        case .specialAttack:
+            return "특수공격"
+        case .specialDefense:
+            return "특수방어"
+        case .speed:
+            return "speed"
+        }
+    }
 }

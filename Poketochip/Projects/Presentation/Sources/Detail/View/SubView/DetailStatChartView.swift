@@ -16,7 +16,7 @@ struct DetailStatChartView: View {
             BarMark(
                 xStart: .value("Stat", 0),
                 xEnd: .value("Stat", 260),
-                y: .value("Type", stat.type.rawValue),
+                y: .value("Type", stat.type.string),
                 height: 19
             )
             .foregroundStyle(.gray)
@@ -29,9 +29,9 @@ struct DetailStatChartView: View {
                 height: 19
             )
             .cornerRadius(6)
-            .foregroundStyle(by: .value("Type", stat.type.rawValue))
+            .foregroundStyle(by: .value("Type", stat.type.string))
             .annotation(position: .leading, alignment: .leading) {
-                Text("\(stat.type.rawValue)")
+                Text("\(stat.type.string)")
                     .frame(width: 85, alignment: .leading)
             }
             .annotation(position: .trailing) {
