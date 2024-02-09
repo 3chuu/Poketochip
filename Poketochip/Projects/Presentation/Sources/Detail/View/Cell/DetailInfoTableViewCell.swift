@@ -73,7 +73,7 @@ final class DetailInfoTableViewCell: UITableViewCell {
         setAutoLayout()
     }
     
-    public func setData(_ data: SamplePokemonInfo) {
+    internal func setData(_ data: SamplePokemonInfo) {
         categoryLabel.updateContent(data.category)
         typeLabel.updateContent(data.type)
         heightLabel.updateContent("\(data.height)m")

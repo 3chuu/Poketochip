@@ -23,7 +23,7 @@ D/P와 PT에서 등장하는 장소는 천관산이다. 한자랑의 뒷마당�
     
     var info: SamplePokemonInfo = SamplePokemonInfo()
     var evolution: SamplePokemonEvolution = SamplePokemonEvolution()
-    var stat: SamplePokemonStat = SamplePokemonStat()
+    var stat: SamplePokemonStatData = SamplePokemonStatData()
 }
 
 struct SamplePokemonInfo {
@@ -56,16 +56,66 @@ struct SamplePokemonEvolution {
     }
 }
 
-struct SamplePokemonStat {
-    var 체력: Int = 80
-    var 공격: Int = 80
-    var 방어: Int = 80
-    var 특수공격: Int = 80
-    var 특수방어: Int = 80
-    var 스피드: Int = 80
+struct SamplePokemonStatData {
+    var statData: [SamplePokemonStat] = [
+        SamplePokemonStat(type: .hp, stat: 60),
+        SamplePokemonStat(type: .attack, stat: 80),
+        SamplePokemonStat(type: .defense, stat: 80),
+        SamplePokemonStat(type: .specialAttack, stat: 80),
+        SamplePokemonStat(type: .specialDefense, stat: 80),
+        SamplePokemonStat(type: .speed, stat: 80),
+    ]
+    
+    var statData2: [SamplePokemonStat] = [
+        SamplePokemonStat(type: .hp, stat: 10),
+        SamplePokemonStat(type: .attack, stat: 10),
+        SamplePokemonStat(type: .defense, stat: 110),
+        SamplePokemonStat(type: .specialAttack, stat: 80),
+        SamplePokemonStat(type: .specialDefense, stat: 80),
+        SamplePokemonStat(type: .speed, stat: 80),
+    ]
     
     var totalStat: String {
-        let totalStat = 체력 + 공격 + 방어 + 특수공격 + 특수방어 + 스피드
+        let totalStat = statData.reduce(0) { $0 + $1.stat }
         return "총합: \(totalStat)"
+    }
+}
+
+struct SamplePokemonStat: Identifiable {
+    let id: UUID = UUID()
+    let type: SamplePokemonStatType
+    let stat: Int
+}
+
+
+enum SamplePokemonStatType: String, CaseIterable {
+    /// 채력
+    case hp
+    /// 공격
+    case attack
+    /// 방어
+    case defense
+    /// 특수공격
+    case specialAttack
+    /// 특수방어
+    case specialDefense
+    /// 스피드
+    case speed
+    
+    var string: String {
+        switch self {
+        case .hp:
+            return "채력"
+        case .attack:
+            return "공격"
+        case .defense:
+            return "방어"
+        case .specialAttack:
+            return "특수공격"
+        case .specialDefense:
+            return "특수방어"
+        case .speed:
+            return "speed"
+        }
     }
 }

@@ -12,5 +12,5 @@ enum DetailCellCase {
   case info(SamplePokemonInfo)
   case acquisitionPath(String)
   case evelution(SamplePokemonEvolution)
-  case stat(SamplePokemonStat)
+  case stat(SamplePokemonStatData)
 }
