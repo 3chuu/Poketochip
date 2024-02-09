@@ -153,16 +153,12 @@ extension CustomTabBarController {
             .disposed(by: disposeBag)
         
         /// 각 button들의 touch event입니다.
-        let firstTabGesture = UITapGestureRecognizer()
-        firstTabBarItem.addGestureRecognizer(firstTabGesture)
-        firstTabGesture.rx.event
+        firstTabBarItem.getTapControlEvent()
             .map { _ in 0 }
             .bind(to: defaultIndexRelay)
             .disposed(by: disposeBag)
         
-        let secondTabGesture = UITapGestureRecognizer()
-        secondTabBarItem.addGestureRecognizer(secondTabGesture)
-        secondTabGesture.rx.event
+        secondTabBarItem.getTapControlEvent()
             .map { _ in 1 }
             .bind(to: defaultIndexRelay)
             .disposed(by: disposeBag)
