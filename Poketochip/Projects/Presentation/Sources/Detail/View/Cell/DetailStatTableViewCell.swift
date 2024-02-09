@@ -50,7 +50,7 @@ final class DetailStatTableViewCell: UITableViewCell {
         setAutoLayout()
     }
     
-    public func setData(_ data: SamplePokemonStatData) {
+    internal func setData(_ data: SamplePokemonStatData) {
         let attributedString = NSMutableAttributedString(string: data.totalStat)
         
         let range = (data.totalStat as NSString).range(of: "총합:")

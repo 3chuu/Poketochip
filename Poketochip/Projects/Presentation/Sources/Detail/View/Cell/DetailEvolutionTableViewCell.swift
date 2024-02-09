@@ -42,7 +42,7 @@ final class DetailEvolutionTableViewCell: UITableViewCell {
         
     }
     
-    public func setData(_ data: SamplePokemonEvolution) {
+    internal func setData(_ data: SamplePokemonEvolution) {
         var pokemons = data.pokemons.sorted(by: { $0.number < $1.number })
         pokemons.removeLast()
         
