@@ -254,11 +254,11 @@ extension CustomTabBarController {
         
         self.setValue(CustomTabBar(frame: tabBar.frame), forKey: "tabBar")
 
-        guard let firstVc = firstTabInfoVC else { return }
-        guard let secondVC = secondTabFavoriteVC else { return }
-        guard let pokemonTabVC = pokemonTabVC else { return }
-        guard let skillMachineTabVC = skillMachineTabVC else { return }
-        guard let toolTabVC = toolTabVC else { return }
+        guard let firstVc = firstTabInfoVC,
+              let secondVC = secondTabFavoriteVC,
+              let pokemonTabVC = pokemonTabVC,
+              let skillMachineTabVC = skillMachineTabVC,
+              let toolTabVC = toolTabVC else { return }
 
         let viewControllers = [firstVc, secondVC, pokemonTabVC, skillMachineTabVC, toolTabVC]
 

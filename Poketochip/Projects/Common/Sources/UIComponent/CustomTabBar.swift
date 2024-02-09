@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class CustomTabBar: UITabBar {
+final class CustomTabBar: UITabBar {
     
     // MARK: View
     private var shapeLayer: CALayer?
