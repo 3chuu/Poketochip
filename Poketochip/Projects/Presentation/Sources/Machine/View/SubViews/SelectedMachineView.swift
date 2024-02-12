@@ -9,4 +9,9 @@ import UIKit
 
 final class SelectedMachineView: BaseView {
     
+    var machine: Machine = Machine.dummyData[0]
+    
+    func setData(machine: Machine) {
+        
+    }
 }

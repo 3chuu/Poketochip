@@ -13,11 +13,7 @@ public final class MachineViewController: BaseViewController<MachineViewModel> {
     
     private let isSelected: Bool = false
     
-    let dummyData: [(image: UIImage, title: String)] = [
-        (image:CommonAsset.dummyPokeball.image ,title:"몬스터볼"),
-        (image:CommonAsset.dummyTool.image ,title:"도구"),
-        (image:CommonAsset.dummyBerry.image,title:"열매")
-    ]
+    let dummyData: [Machine] = Machine.dummyData
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -25,14 +21,26 @@ public final class MachineViewController: BaseViewController<MachineViewModel> {
         return searchBar
     }()
     
-    private var machineInfoView: BaseView { 
-        isSelected ? SelectedMachineView() : EmptyMachineView()
-    }
+    private var emptyMachineView = {
+        let view = EmptyMachineView()
+        view.isHidden = false
+        return view
+    }()
+    private var selectedMachineView = {
+        let view = SelectedMachineView()
+        view.isHidden = true
+        return view
+    }()
+    
+//    private var machineInfoView: UIView {
+//        isSelected ? SelectedMachineView() : EmptyMachineView()
+//    }
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -52,16 +60,23 @@ public final class MachineViewController: BaseViewController<MachineViewModel> {
         super.setAutoLayout()
         
         // Add tableView to the view
-        view.addSubviews(searchBar, machineInfoView, tableView)
+        view.addSubviews(searchBar, emptyMachineView, selectedMachineView, tableView)
         
         searchBar.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
         
-        machineInfoView.snp.makeConstraints {
+        emptyMachineView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(10)
+            $0.leading.equalToSuperview().inset(15)
+            $0.trailing.equalToSuperview().inset(15)
+            $0.height.equalTo(140)
+        }
+        
+        selectedMachineView.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom).offset(10)
             $0.leading.equalToSuperview().inset(15)
             $0.trailing.equalToSuperview().inset(15)
@@ -70,8 +85,8 @@ public final class MachineViewController: BaseViewController<MachineViewModel> {
         
         // Set constraints for tableView
         tableView.snp.makeConstraints {
-            $0.top.equalTo(machineInfoView.snp.bottom).offset(15)
-            $0.horizontalEdges.equalToSuperview()
+            $0.top.equalTo(emptyMachineView.snp.bottom).offset(15)
+            $0.horizontalEdges.equalToSuperview().inset(15)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -103,23 +118,28 @@ extension MachineViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-//        cell.setData(dummyData[indexPath.row].image, dummyData[indexPath.row].title)
+        cell.setData(machine: dummyData[indexPath.row])
+        
         return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Deselect the row to remove the selection highlight
-        tableView.deselectRow(at: indexPath, animated: true)
         
-        // Perform the segue or push to the next view controller
-        let nextViewController = BagDetailViewController(viewModel: BagDetailViewModel()) // Replace with your destination view controller
-        navigationController?.pushViewController(nextViewController, animated: true)
+        selectedMachineView.setData(machine: dummyData[indexPath.row])
         
-        // Alternatively, if using segues in Storyboard, performSegue(withIdentifier: "YourSegueIdentifier", sender: self)
+        emptyMachineView.isHidden = true
+        selectedMachineView.isHidden = false
+        
+    }
+    
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        emptyMachineView.isHidden = false
+        selectedMachineView.isHidden = true
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
+        return 50
     }
 }
 
