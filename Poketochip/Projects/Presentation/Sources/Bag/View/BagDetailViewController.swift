@@ -17,7 +17,7 @@ public class BagDetailViewController: BaseViewController<BagDetailViewModel> {
     
     private let tableView = UITableView()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
