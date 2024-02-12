@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = UINavigationController(rootViewController: MachineViewController(viewModel: MachineViewModel()))
+        window?.rootViewController = UINavigationController(rootViewController: DetailViewController())
         window?.makeKeyAndVisible()
     }
     
@@ -35,3 +35,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneDidEnterBackground(_ scene: UIScene) {}
 }
+

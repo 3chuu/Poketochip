@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TempCapsuleView: UIView {
+final class TempCapsuleView: BaseView {
     
     private let label: UILabel = {
         let label = UILabel()
@@ -17,7 +17,7 @@ class TempCapsuleView: UIView {
         return label
     }()
     
-    init(text: String, backgroundColor: UIColor) {
+    internal init(text: String, backgroundColor: UIColor) {
         super.init(frame: .zero)
         
         // 배경색 설정
@@ -32,10 +32,10 @@ class TempCapsuleView: UIView {
         
         // Auto Layout 설정
         label.snp.makeConstraints {
-            $0.leading.equalTo(self).inset(12)
-            $0.trailing.equalTo(self).inset(12)
-            $0.top.equalTo(self).inset(7)
-            $0.bottom.equalTo(self).inset(7)
+            $0.leading.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview().inset(12)
+            $0.top.equalToSuperview().inset(7)
+            $0.bottom.equalToSuperview().inset(7)
         }
     }
     

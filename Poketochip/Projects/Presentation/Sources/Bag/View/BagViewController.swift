@@ -17,7 +17,13 @@ public final class BagViewController: BaseViewController<BagViewModel> {
         (image:CommonAsset.dummyBerry.image,title:"열매")
     ]
     
-    private let tableView: UITableView = UITableView(frame: .zero)
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        return tableView
+    }()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +56,6 @@ public final class BagViewController: BaseViewController<BagViewModel> {
     /// 이외의 attributes 설정
     override func setAttributes() {
         super.setAttributes()
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        
         navigationItem.title = "도구"
         registerCell()
     }
@@ -64,18 +66,22 @@ public final class BagViewController: BaseViewController<BagViewModel> {
     
 }
 
-extension BagViewController: UITableViewDataSource {
-
+extension BagViewController: UITableViewDataSource, UITableViewDelegate  {
+    
+    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows
         return dummyData.count
     }
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as! BagTableViewCell
-        
-        cell.setData(dummyData[indexPath.row].image, dummyData[indexPath.row].title)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as? BagTableViewCell else {
+            return BagTableViewCell()
+        }
         // Add any other constraints for the cell's content
         return cell
     }
@@ -93,12 +99,6 @@ extension BagViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
-    }
-}
-
-extension BagViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
     }
 }
 

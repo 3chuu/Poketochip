@@ -12,12 +12,12 @@ import Common
 public class BagDetailViewController: BaseViewController<BagDetailViewModel> {
     
     // 데이터 모델
-    var sections: [Section] = []
-    var selectedIndexPath: IndexPath?
+    private var sections: [Section] = []
+    private var selectedIndexPath: IndexPath?
     
     private let tableView = UITableView()
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
@@ -90,9 +90,6 @@ extension BagDetailViewController: UITableViewDataSource, UITableViewDelegate  {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Deselect the row to remove the selection highlight
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        // Alternatively, if using segues in Storyboard, performSegue(withIdentifier: "YourSegueIdentifier", sender: self)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -103,4 +100,3 @@ extension BagDetailViewController: UITableViewDataSource, UITableViewDelegate  {
         tableView.register(BagDetailTableViewCell.self, forCellReuseIdentifier: BagDetailTableViewCell.cellId)
     }
 }
-

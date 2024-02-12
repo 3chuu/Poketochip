@@ -14,10 +14,10 @@ let project = Project.framework(
         [Module.domain.project,
          Module.common.project
         ] +
-    [
-        .SPM.snapKit,
-        .SPM.rxSwift,
-        .SPM.rxCocoa
-    ]
+        [
+            .SPM.snapKit,
+            .SPM.rxSwift,
+            .SPM.rxCocoa
+        ]
 )
 

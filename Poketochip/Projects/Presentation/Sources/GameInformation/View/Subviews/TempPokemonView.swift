@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Common
 
-class TempPokemonView: UIView {
+class TempPokemonView: BaseView {
 
     private let pokemonImage: UIImageView = {
         let imageView = UIImageView()
@@ -26,7 +26,7 @@ class TempPokemonView: UIView {
     }()
     
     
-    init(imageURL: UIImage, text: String) {
+    internal init(imageURL: UIImage, text: String) {
         super.init(frame: .zero)
         
         pokemonImage.image = imageURL
