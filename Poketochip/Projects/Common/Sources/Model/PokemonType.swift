@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PokemonTypeEnum: String {
+public enum PokemonTypeEnum: String {
     case normal = "노말"
     case fighting = "격투"
     case flying = "비행"
@@ -30,7 +30,7 @@ enum PokemonTypeEnum: String {
     case shadow = "그림자"
 }
 
-struct PokemonType {
+public struct PokemonType {
     let no: Int
     let name: PokemonTypeEnum
     let symbolName: String?
