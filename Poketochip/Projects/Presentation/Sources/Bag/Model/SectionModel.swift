@@ -5,9 +5,10 @@
 //  Created by cha_nyeong on 2/9/24.
 //
 
-import Foundation
+import UIKit
 
 struct Section {
+    var image: UIImage
     var title: String
     var detail: String
     var expanded: Bool
