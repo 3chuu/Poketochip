@@ -56,7 +56,6 @@ public final class BagViewController: BaseViewController<BagViewModel> {
     /// 이외의 attributes 설정
     override func setAttributes() {
         super.setAttributes()
-        
         navigationItem.title = "도구"
         registerCell()
     }
@@ -74,7 +73,6 @@ extension BagViewController: UITableViewDataSource {
         // Return the number of rows
         return dummyData.count
     }
-    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as? BagTableViewCell else {

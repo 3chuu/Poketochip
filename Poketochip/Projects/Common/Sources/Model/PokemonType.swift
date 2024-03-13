@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-enum PokemonTypeEnum: String {
+public enum PokemonTypeEnum: String {
     case normal = "노말"
     case fighting = "격투"
     case flying = "비행"
@@ -30,32 +31,32 @@ enum PokemonTypeEnum: String {
     case shadow = "그림자"
 }
 
-struct PokemonType {
-    let no: Int
-    let name: PokemonTypeEnum
-    let symbolName: String?
-    let iconName: String?
+public struct PokemonType {
+    public let no: Int
+    public let name: PokemonTypeEnum
+    public let symbolImage: UIImage?
+    public let iconImage: UIImage?
     
-    static let normal = PokemonType(no: 1, name: .normal, symbolName: "Normal", iconName: "Normal_Icon")
-    static let fighting = PokemonType(no: 2, name: .fighting, symbolName: "Fighting", iconName: "Fighting_Icon")
-    static let flying = PokemonType(no: 3, name: .flying, symbolName: "Flying", iconName: "Flying_Icon")
-    static let poison = PokemonType(no: 4, name: .poison, symbolName: "Poison", iconName: "Poison_Icon")
-    static let ground = PokemonType(no: 5, name: .ground, symbolName: "Ground", iconName: "Ground_Icon")
-    static let rock = PokemonType(no: 6, name: .rock, symbolName: "Rock", iconName: "Rock_Icon")
-    static let bug = PokemonType(no: 7, name: .bug, symbolName: "Bug", iconName: "Bug_Icon")
-    static let ghost = PokemonType(no: 8, name: .ghost, symbolName: "Ghost", iconName: "Ghost_Icon")
-    static let steel = PokemonType(no: 9, name: .steel, symbolName: "Steel", iconName: "Steel_Icon")
-    static let fire = PokemonType(no: 10, name: .fire, symbolName: "Fire", iconName: "Fire_Icon")
-    static let water = PokemonType(no: 11, name: .water, symbolName: "Water", iconName: "Water_Icon")
-    static let grass = PokemonType(no: 12, name: .grass, symbolName: "Grass", iconName: "Grass_Icon")
-    static let electric = PokemonType(no: 13, name: .electric, symbolName: "Electric", iconName: "Electric_Icon")
-    static let psychic = PokemonType(no: 14, name: .psychic, symbolName: "Psychic", iconName: "Psychic_Icon")
-    static let ice = PokemonType(no: 15, name: .ice, symbolName: "Ice", iconName: "Ice_Icon")
-    static let dragon = PokemonType(no: 16, name: .dragon, symbolName: "Dragon", iconName: "Dragon_Icon")
-    static let dark = PokemonType(no: 17, name: .dark, symbolName: "Dark", iconName: "Dark_Icon")
-    static let fairy = PokemonType(no: 18, name: .fairy, symbolName: "Fairy", iconName: "Fairy_Icon")
-    static let unknown = PokemonType(no: 10001, name: .unknown, symbolName: "Normal", iconName: "Normal_Icon")
-    static let shadow = PokemonType(no: 10002, name: .shadow, symbolName: "Normal", iconName: "Normal_Icon")
+    public static let normal = PokemonType(no: 1, name: .normal, symbolImage: CommonAsset.normal.image, iconImage: CommonAsset.normalIcon.image)
+    public static let fighting = PokemonType(no: 2, name: .fighting, symbolImage: CommonAsset.fighting.image, iconImage: CommonAsset.fightingIcon.image)
+    public static let flying = PokemonType(no: 3, name: .flying, symbolImage: CommonAsset.flying.image, iconImage: CommonAsset.flyingIcon.image)
+    public static let poison = PokemonType(no: 4, name: .poison, symbolImage: CommonAsset.poison.image, iconImage: CommonAsset.poisonIcon.image)
+    public static let ground = PokemonType(no: 5, name: .ground, symbolImage: CommonAsset.ground.image, iconImage: CommonAsset.groundIcon.image)
+    public static let rock = PokemonType(no: 6, name: .rock, symbolImage: CommonAsset.rock.image, iconImage: CommonAsset.rockIcon.image)
+    public static let bug = PokemonType(no: 7, name: .bug, symbolImage: CommonAsset.bug.image, iconImage: CommonAsset.bugIcon.image)
+    public static let ghost = PokemonType(no: 8, name: .ghost, symbolImage: CommonAsset.ghost.image, iconImage: CommonAsset.ghostIcon.image)
+    public static let steel = PokemonType(no: 9, name: .steel, symbolImage: CommonAsset.steel.image, iconImage: CommonAsset.steelIcon.image)
+    public static let fire = PokemonType(no: 10, name: .fire, symbolImage: CommonAsset.fire.image, iconImage: CommonAsset.fireIcon.image)
+    public static let water = PokemonType(no: 11, name: .water, symbolImage: CommonAsset.water.image, iconImage: CommonAsset.waterIcon.image)
+    public static let grass = PokemonType(no: 12, name: .grass, symbolImage: CommonAsset.grass.image, iconImage: CommonAsset.grassIcon.image)
+    public static let electric = PokemonType(no: 13, name: .electric, symbolImage: CommonAsset.electric.image, iconImage: CommonAsset.electricIcon.image)
+    public static let psychic = PokemonType(no: 14, name: .psychic, symbolImage: CommonAsset.psychic.image, iconImage: CommonAsset.psychicIcon.image)
+    public static let ice = PokemonType(no: 15, name: .ice, symbolImage: CommonAsset.ice.image, iconImage: CommonAsset.iceIcon.image)
+    public static let dragon = PokemonType(no: 16, name: .dragon, symbolImage: CommonAsset.dragon.image, iconImage: CommonAsset.dragonIcon.image)
+    public static let dark = PokemonType(no: 17, name: .dark, symbolImage: CommonAsset.dark.image, iconImage: CommonAsset.darkIcon.image)
+    public static let fairy = PokemonType(no: 18, name: .fairy, symbolImage: CommonAsset.fairy.image, iconImage: CommonAsset.fairyIcon.image)
+    public static let unknown = PokemonType(no: 10001, name: .unknown, symbolImage: CommonAsset.normal.image, iconImage: CommonAsset.normalIcon.image)
+    public static let shadow = PokemonType(no: 10002, name: .shadow, symbolImage: CommonAsset.normal.image, iconImage: CommonAsset.normalIcon.image)
 }
 
 

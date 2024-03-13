@@ -79,9 +79,9 @@ extension BagDetailViewController: UITableViewDataSource, UITableViewDelegate  {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BagDetailTableViewCell.cellId, for: indexPath) as? BagDetailTableViewCell else {
-            return BagDetailTableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: BagDetailTableViewCell.cellId, for: indexPath) as! BagDetailTableViewCell
+        
+        cell.setData(image: sections[indexPath.row].image, title: sections[indexPath.row].title, detail: sections[indexPath.row].detail)
         
         
         cell.setData(image: sections[indexPath.row].image, title: sections[indexPath.row].title, detail: sections[indexPath.row].detail)

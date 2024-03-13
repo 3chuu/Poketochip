@@ -8,6 +8,7 @@
 import UIKit
 
 final class BagTableViewCell: UITableViewCell {
+    
     static let cellId: String = "BagCellIdentifier"
     
     // MARK: View
