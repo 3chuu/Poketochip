@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Common
 
-public class BagDetailViewController: BaseViewController<BagDetailViewModel> {
+final public class BagDetailViewController: BaseViewController<BagDetailViewModel> {
     
     // 데이터 모델
     private var sections: [Section] = []
@@ -82,6 +82,10 @@ extension BagDetailViewController: UITableViewDataSource, UITableViewDelegate  {
         let cell = tableView.dequeueReusableCell(withIdentifier: BagDetailTableViewCell.cellId, for: indexPath) as! BagDetailTableViewCell
         
         cell.setData(image: sections[indexPath.row].image, title: sections[indexPath.row].title, detail: sections[indexPath.row].detail)
+        
+        
+        cell.setData(image: sections[indexPath.row].image, title: sections[indexPath.row].title, detail: sections[indexPath.row].detail)
+
         
         // Add any other constraints for the cell's content
         return cell

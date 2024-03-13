@@ -72,7 +72,7 @@ final class BagDetailTableViewCell: UITableViewCell {
         
     }
     
-    func setData(image: UIImage, title: String, detail: String) {
+    public func setData(image: UIImage, title: String, detail: String) {
         toolImage.image = image
         titleLabel.text = title
         detailLabel.text = detail

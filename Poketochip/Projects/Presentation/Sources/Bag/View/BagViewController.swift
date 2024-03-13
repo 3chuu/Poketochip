@@ -66,22 +66,20 @@ public final class BagViewController: BaseViewController<BagViewModel> {
     
 }
 
-extension BagViewController: UITableViewDataSource, UITableViewDelegate  {
-    
-    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
+extension BagViewController: UITableViewDataSource {
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         // Return the number of rows
         return dummyData.count
     }
-
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue or create your custom cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BagTableViewCell.cellId, for: indexPath) as? BagTableViewCell else {
             return BagTableViewCell()
         }
+        cell.setData(dummyData[indexPath.row].image, dummyData[indexPath.row].title)
+
         // Add any other constraints for the cell's content
         return cell
     }
@@ -99,6 +97,12 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate  {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
+    }
+}
+
+extension BagViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 

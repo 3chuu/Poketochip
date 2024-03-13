@@ -47,7 +47,7 @@ final class FavoritePokemonViewController: BaseViewController<FavoritePokemonVie
         layout.scrollDirection = .vertical
         collectionView.collectionViewLayout = layout
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(FavoritePokemonCollectionViewCell.self, forCellWithReuseIdentifier: FavoritePokemonCollectionViewCell.id)
+        collectionView.register(PokemonListCollectionViewCell.self, forCellWithReuseIdentifier: PokemonListCollectionViewCell.cellId)
         return collectionView
     }()
     
@@ -104,12 +104,10 @@ extension FavoritePokemonViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoritePokemonCollectionViewCell.id, for: indexPath) as? FavoritePokemonCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonListCollectionViewCell.cellId, for: indexPath) as? PokemonListCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.setCell(data: PokemonCell.pokemons[indexPath.row])
         return cell
     }
-    
-    
 }
