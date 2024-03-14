@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SelectedMachineView: BaseView {
+final class SelectedMachineView: BaseView<EmptyViewModel> {
     
     var machine: Machine = Machine.dummyData[0]
     

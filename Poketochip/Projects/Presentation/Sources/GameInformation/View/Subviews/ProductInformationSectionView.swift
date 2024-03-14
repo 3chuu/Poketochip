@@ -9,7 +9,7 @@ import UIKit
 import Common
 import SnapKit
 
-final class ProductInformationSectionView: BaseView {
+final class ProductInformationSectionView: BaseView<EmptyViewModel> {
     
     private let contentView1 = TempContentView(leftLabelText: "발매일", rightLabelText: "2022년 11월")
     private let contentView2 = TempContentView(leftLabelText: "대응기기", rightLabelText: "Nintendo Switch")
@@ -93,10 +93,6 @@ final class ProductInformationSectionView: BaseView {
     
     override func configureUI() {
         setAutoLayout()
-    }
-    
-    override func bind() {
-        super.bind()
     }
     
     override func setAutoLayout() {

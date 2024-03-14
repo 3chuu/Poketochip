@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Common
 
-final class TempContentView: BaseView {
+final class TempContentView: BaseView<EmptyViewModel> {
     
     // 좌측 라벨
     private let leftLabel: UILabel = {

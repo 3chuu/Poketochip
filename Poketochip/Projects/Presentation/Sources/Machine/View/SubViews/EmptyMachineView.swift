@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Common
 
-final class EmptyMachineView: BaseView {
+final class EmptyMachineView: BaseView<EmptyViewModel> {
     
     private let textLabel: UILabel = {
         let label = UILabel()
@@ -32,10 +32,6 @@ final class EmptyMachineView: BaseView {
     
     override func configureUI() {
         setAutoLayout()
-    }
-    
-    override func bind() {
-        super.bind()
     }
     
     override func setAutoLayout() {

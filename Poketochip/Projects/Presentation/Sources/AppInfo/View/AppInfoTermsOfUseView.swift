@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class AppInfoTermsOfUseView: BaseView {
+final class AppInfoTermsOfUseView: BaseView<EmptyViewModel> {
     
     //MARK: View
     private let contentView: UIView = {

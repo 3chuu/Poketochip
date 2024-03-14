@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TempCapsuleView: BaseView {
+final class TempCapsuleView: BaseView<EmptyViewModel> {
     
     private let label: UILabel = {
         let label = UILabel()

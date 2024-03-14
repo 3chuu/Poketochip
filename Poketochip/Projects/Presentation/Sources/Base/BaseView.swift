@@ -7,10 +7,20 @@
 
 import UIKit
 
-class BaseView: UIView {
+import RxSwift
+
+class BaseView<ViewModelType>: UIView {
+    var viewModel: ViewModelType?
+    let disposeBag = DisposeBag()
+    
+    convenience init(viewModel: ViewModelType) {
+        self.init(frame: .zero)
+        self.viewModel = viewModel
+        bind(viewModel: viewModel)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        bind()
         configureUI()
     }
     
@@ -18,7 +28,7 @@ class BaseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind() {
+    func bind(viewModel: ViewModelType) {
         
     }
     

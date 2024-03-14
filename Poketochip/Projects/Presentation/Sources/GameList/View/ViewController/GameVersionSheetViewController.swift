@@ -9,8 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class GameVersionSheetViewController: BaseViewController<GameVersionViewModel> {
-
+final class GameVersionSheetViewController: BaseViewController<GameVersionSheetViewModel> {
     private let versionStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,9 +23,16 @@ final class GameVersionSheetViewController: BaseViewController<GameVersionViewMo
 
     }
     
+    override func bind() {
+        // 추후에 viewModel init 이벤트를 받아 binding으로 바꾸기
+        viewModel.versions.forEach {
+            let versionView = GameVersionView(viewModel: .init(version: $0))
+            versionStackView.addArrangedSubview(versionView)
+        }
+    }
+    
     override func configureUI() {
         super.configureUI()
-        setStackView()
     }
     
     override func setAutoLayout() {
@@ -38,11 +44,5 @@ final class GameVersionSheetViewController: BaseViewController<GameVersionViewMo
             $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
-    }
-    
-    private func setStackView() {
-//        viewModel.versions.forEach
-        let versionView = GameVersionView()
-        versionStackView.addArrangedSubview(versionView)
     }
 }

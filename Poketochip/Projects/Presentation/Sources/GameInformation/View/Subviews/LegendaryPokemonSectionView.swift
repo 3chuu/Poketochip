@@ -10,7 +10,7 @@ import UIKit
 import Common
 import SnapKit
 
-final class LegendaryPokemonSectionView: BaseView {
+final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
     
     private let innerView: UIView = .init()
     
@@ -74,10 +74,6 @@ final class LegendaryPokemonSectionView: BaseView {
     
     override func configureUI() {
         setAutoLayout()
-    }
-    
-    override func bind() {
-        super.bind()
     }
     
     override func setAutoLayout() {

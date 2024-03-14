@@ -11,7 +11,7 @@ import Common
 
 import SnapKit
 
-final class GameVersionView: BaseView {
+final class GameVersionView: BaseView<GameVersionViewModel> {
     private let titleLabel: UILabel = {
         let label = UILabel()
         return label
@@ -24,17 +24,14 @@ final class GameVersionView: BaseView {
     
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.tintColor = .mainRed
+        imageView.tintColor = .mainRed
         imageView.image = CommonAsset.chevronCircle.image
         return imageView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func bind(viewModel: GameVersionViewModel) {
+        titleLabel.text = "\(viewModel.version.name) 버전 보기"
+        legendaryImageView.kf.setImage(with: URL(string: viewModel.version.legendaryImageURL))
     }
     
     override func setAutoLayout() {
@@ -50,7 +47,7 @@ final class GameVersionView: BaseView {
         legendaryImageView.snp.makeConstraints {
             $0.size.equalTo(44)
             $0.centerY.equalToSuperview()
-            $0.leading.equalTo(titleLabel.snp.trailing).offset(10)
+            $0.trailing.equalTo(arrowImageView.snp.leading).offset(-10)
         }
         
         arrowImageView.snp.makeConstraints {

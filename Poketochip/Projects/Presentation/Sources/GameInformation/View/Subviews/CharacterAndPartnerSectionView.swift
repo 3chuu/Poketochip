@@ -9,7 +9,7 @@ import UIKit
 import Common
 import SnapKit
 
-final class CharacterAndPartnerSectionView: BaseView {
+final class CharacterAndPartnerSectionView: BaseView<EmptyViewModel> {
     
     private let innerView: UIView = .init()
     private let stackArrangeView1: TempPokemonView = .init(imageURL: CommonAsset.dummyPartner1.image, text: "나오하")
@@ -62,10 +62,6 @@ final class CharacterAndPartnerSectionView: BaseView {
     
     override func configureUI() {
         setAutoLayout()
-    }
-    
-    override func bind() {
-        super.bind()
     }
     
     override func setAutoLayout() {

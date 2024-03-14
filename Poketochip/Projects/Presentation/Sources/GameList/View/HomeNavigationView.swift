@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class HomeNavigationView: BaseView {
+final class HomeNavigationView: BaseView<EmptyViewModel> {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -21,14 +21,6 @@ final class HomeNavigationView: BaseView {
         button.setImage(UIImage(systemName: "info.circle"), for: .normal)
         return button
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func setAutoLayout() {
         super.setAutoLayout()

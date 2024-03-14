@@ -70,8 +70,21 @@ extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setCell(GameModel.tempGames[indexPath.row])
         return cell
     }
-//    
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = GameVersionSheetViewController(viewModel: GameVersionSheetViewModel(versions: GameModel.tempGames[indexPath.row].versions))
+ 
+        let detentIdentifier = UISheetPresentationController.Detent.Identifier("customDetent")
+        let customDetent = UISheetPresentationController.Detent.custom(identifier: detentIdentifier) { _ in
+            return 236
+        }
+        
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 28
+        }
+        
+        present(viewController, animated: true, completion: nil)
+    }
 }
