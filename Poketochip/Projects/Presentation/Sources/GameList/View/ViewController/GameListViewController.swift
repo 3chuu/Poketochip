@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import RxSwift
 
 public final class GameListViewController: BaseViewController<GameListViewModel> {
     private let navigationView: HomeNavigationView = {
@@ -33,6 +34,11 @@ public final class GameListViewController: BaseViewController<GameListViewModel>
         
         gameTableView.delegate = self
         gameTableView.dataSource = self
+        
+        navigationView.rightButtonTap
+            .withUnretained(self)
+            .bind(onNext: { $0.0.pushToAppInfoViewController() })
+            .disposed(by: disposeBag)
     }
     
     override func setAutoLayout() {
@@ -55,6 +61,13 @@ public final class GameListViewController: BaseViewController<GameListViewModel>
         super.setAttributes()
         
         gameTableView.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.cellId)
+    }
+}
+
+extension GameListViewController {
+    private func pushToAppInfoViewController() {
+        let viewController = AppInfoViewController(viewModel: .init())
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

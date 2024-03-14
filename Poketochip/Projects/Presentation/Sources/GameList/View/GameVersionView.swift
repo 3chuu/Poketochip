@@ -11,7 +11,25 @@ import Common
 
 import SnapKit
 
-final class GameVersionView: BaseView<GameVersionViewModel> {
+final class GameVersionTableViewCell: UITableViewCell {
+    private var viewModel: GameVersionViewModel?
+    static let cellId = "GameVersionTableViewCell"
+    
+    convenience init(viewModel: GameVersionViewModel) {
+        self.init(style: .default, reuseIdentifier: nil)
+        self.viewModel = viewModel
+        self.bind(viewModel: viewModel)
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setAutoLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         return label
@@ -29,14 +47,13 @@ final class GameVersionView: BaseView<GameVersionViewModel> {
         return imageView
     }()
     
-    override func bind(viewModel: GameVersionViewModel) {
+    func bind(viewModel: GameVersionViewModel) {
+        print(viewModel.version)
         titleLabel.text = "\(viewModel.version.name) 버전 보기"
         legendaryImageView.kf.setImage(with: URL(string: viewModel.version.legendaryImageURL))
     }
     
-    override func setAutoLayout() {
-        super.setAutoLayout()
-        
+    func setAutoLayout() {
         addSubviews(titleLabel, legendaryImageView, arrowImageView)
         
         titleLabel.snp.makeConstraints {

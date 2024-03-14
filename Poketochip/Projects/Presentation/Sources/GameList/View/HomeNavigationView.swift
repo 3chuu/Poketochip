@@ -8,6 +8,8 @@
 import UIKit
 
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class HomeNavigationView: BaseView<EmptyViewModel> {
     private let logoImageView: UIImageView = {
@@ -21,6 +23,10 @@ final class HomeNavigationView: BaseView<EmptyViewModel> {
         button.setImage(UIImage(systemName: "info.circle"), for: .normal)
         return button
     }()
+    
+    var rightButtonTap: ControlEvent<Void> {
+        return rightButton.rx.tap
+    }
     
     override func setAutoLayout() {
         super.setAutoLayout()

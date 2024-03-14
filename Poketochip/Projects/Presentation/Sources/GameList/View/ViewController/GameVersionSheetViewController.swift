@@ -10,12 +10,12 @@ import UIKit
 import SnapKit
 
 final class GameVersionSheetViewController: BaseViewController<GameVersionSheetViewModel> {
-    private let versionStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 0
-        return stackView
+    private let versionTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .singleLine
+        tableView.rowHeight = 70
+        tableView.isScrollEnabled = false
+        return tableView
     }()
     
     override func viewDidLoad() {
@@ -24,11 +24,8 @@ final class GameVersionSheetViewController: BaseViewController<GameVersionSheetV
     }
     
     override func bind() {
-        // 추후에 viewModel init 이벤트를 받아 binding으로 바꾸기
-        viewModel.versions.forEach {
-            let versionView = GameVersionView(viewModel: .init(version: $0))
-            versionStackView.addArrangedSubview(versionView)
-        }
+        versionTableView.delegate = self
+        versionTableView.dataSource = self
     }
     
     override func configureUI() {
@@ -38,11 +35,32 @@ final class GameVersionSheetViewController: BaseViewController<GameVersionSheetV
     override func setAutoLayout() {
         super.setAutoLayout()
         
-        view.addSubviews(versionStackView)
+        view.addSubviews(versionTableView)
         
-        versionStackView.snp.makeConstraints {
-            $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+        versionTableView.snp.makeConstraints {
+            $0.verticalEdges.equalTo(view.safeAreaLayoutGuide).inset(36)
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
+    }
+    
+    override func setAttributes() {
+        super.setAttributes()
+        
+        versionTableView.register(GameVersionTableViewCell.self, forCellReuseIdentifier: GameVersionTableViewCell.cellId)
+    }
+}
+
+extension GameVersionSheetViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = GameVersionTableViewCell(viewModel: .init(version: viewModel.versions[indexPath.row]))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("넘어가기!!")
     }
 }
