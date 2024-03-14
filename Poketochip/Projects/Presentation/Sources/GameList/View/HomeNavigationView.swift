@@ -17,7 +17,7 @@ final class HomeNavigationView: BaseView {
     
     private let rightButton: UIButton = {
         let button = UIButton()
-//        button.tintColor = .gray800
+        button.tintColor = .gray800
         button.setImage(UIImage(systemName: "info.circle"), for: .normal)
         return button
     }()
@@ -37,7 +37,7 @@ final class HomeNavigationView: BaseView {
         
         logoImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.top.equalTo(120)
+            $0.width.equalTo(120)
             $0.height.equalTo(44)
         }
         

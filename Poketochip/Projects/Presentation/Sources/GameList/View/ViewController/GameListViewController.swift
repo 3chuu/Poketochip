@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class GameListViewController: BaseViewController<GameListViewModel> {
+public final class GameListViewController: BaseViewController<GameListViewModel> {
     private let navigationView: HomeNavigationView = {
         let view = HomeNavigationView()
         return view
@@ -23,7 +23,7 @@ final class GameListViewController: BaseViewController<GameListViewModel> {
         return tableView
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
     }
@@ -50,18 +50,28 @@ final class GameListViewController: BaseViewController<GameListViewModel> {
             $0.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    override func setAttributes() {
+        super.setAttributes()
+        
+        gameTableView.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.cellId)
+    }
 }
 
 extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return GameModel.tempGames.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GameTableViewCell.cellId, for: indexPath) as? GameTableViewCell else {
             return UITableViewCell()
         }
         cell.setCell(GameModel.tempGames[indexPath.row])
         return cell
     }
+//    
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 }

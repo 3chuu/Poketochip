@@ -28,20 +28,18 @@ final class GameTableViewCell: UITableViewCell {
     
      private let titleLabel: UILabel = {
          let label = UILabel()
-//         label.font
          label.textColor = .white
          return label
      }()
      
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureUI() {

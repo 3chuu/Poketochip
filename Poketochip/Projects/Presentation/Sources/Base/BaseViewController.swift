@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class BaseViewController<ViewModelType>: UIViewController {
+public class BaseViewController<ViewModelType>: UIViewController {
     let viewModel: ViewModelType
     let disposeBag = DisposeBag()
 
-    init(viewModel: ViewModelType) {
+    public init(viewModel: ViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,7 +23,7 @@ class BaseViewController<ViewModelType>: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         bind()
         configureUI()
@@ -47,6 +47,7 @@ class BaseViewController<ViewModelType>: UIViewController {
     
     /// 이외의 attributes 설정
     func setAttributes() {
+        navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .systemBackground
     }
 }
