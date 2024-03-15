@@ -9,7 +9,7 @@ import UIKit
 import Common
 import SnapKit
 
-final class RegionSectionView: BaseView {
+final class RegionSectionView: BaseView<EmptyViewModel> {
     
     // 타이틀라벨
     private let titleLabel: UILabel = {
@@ -63,10 +63,6 @@ final class RegionSectionView: BaseView {
     
     override func configureUI() {
         setAutoLayout()
-    }
-    
-    override func bind() {
-        super.bind()
     }
     
     override func setAutoLayout() {

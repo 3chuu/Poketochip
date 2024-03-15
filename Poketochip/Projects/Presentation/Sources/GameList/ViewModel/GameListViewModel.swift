@@ -7,6 +7,6 @@
 
 import Foundation
 
-final class GameListViewModel {
-    
+public final class GameListViewModel {
+    public init() { }
 }

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Common
 
-class TempPokemonView: BaseView {
+class TempPokemonView: BaseView<EmptyViewModel> {
 
     private let pokemonImage: UIImageView = {
         let imageView = UIImageView()

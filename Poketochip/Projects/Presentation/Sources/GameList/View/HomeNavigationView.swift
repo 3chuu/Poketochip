@@ -8,8 +8,10 @@
 import UIKit
 
 import SnapKit
+import RxSwift
+import RxCocoa
 
-final class HomeNavigationView: BaseView {
+final class HomeNavigationView: BaseView<EmptyViewModel> {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -17,17 +19,13 @@ final class HomeNavigationView: BaseView {
     
     private let rightButton: UIButton = {
         let button = UIButton()
-//        button.tintColor = .gray800
+        button.tintColor = .gray800
         button.setImage(UIImage(systemName: "info.circle"), for: .normal)
         return button
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    var rightButtonTap: ControlEvent<Void> {
+        return rightButton.rx.tap
     }
     
     override func setAutoLayout() {
@@ -37,7 +35,7 @@ final class HomeNavigationView: BaseView {
         
         logoImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.top.equalTo(120)
+            $0.width.equalTo(120)
             $0.height.equalTo(44)
         }
         

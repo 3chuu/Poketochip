@@ -8,8 +8,9 @@
 import UIKit
 
 import SnapKit
+import RxSwift
 
-final class GameListViewController: BaseViewController<GameListViewModel> {
+public final class GameListViewController: BaseViewController<GameListViewModel> {
     private let navigationView: HomeNavigationView = {
         let view = HomeNavigationView()
         return view
@@ -23,7 +24,7 @@ final class GameListViewController: BaseViewController<GameListViewModel> {
         return tableView
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
     }
@@ -33,6 +34,11 @@ final class GameListViewController: BaseViewController<GameListViewModel> {
         
         gameTableView.delegate = self
         gameTableView.dataSource = self
+        
+        navigationView.rightButtonTap
+            .withUnretained(self)
+            .bind(onNext: { $0.0.pushToAppInfoViewController() })
+            .disposed(by: disposeBag)
     }
     
     override func setAutoLayout() {
@@ -50,18 +56,48 @@ final class GameListViewController: BaseViewController<GameListViewModel> {
             $0.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    override func setAttributes() {
+        super.setAttributes()
+        
+        gameTableView.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.cellId)
+    }
+}
+
+extension GameListViewController {
+    private func pushToAppInfoViewController() {
+        let viewController = AppInfoViewController(viewModel: .init())
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return GameModel.tempGames.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GameTableViewCell.cellId, for: indexPath) as? GameTableViewCell else {
             return UITableViewCell()
         }
         cell.setCell(GameModel.tempGames[indexPath.row])
         return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = GameVersionSheetViewController(viewModel: GameVersionSheetViewModel(versions: GameModel.tempGames[indexPath.row].versions))
+ 
+        let detentIdentifier = UISheetPresentationController.Detent.Identifier("customDetent")
+        let customDetent = UISheetPresentationController.Detent.custom(identifier: detentIdentifier) { _ in
+            return 236
+        }
+        
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 28
+        }
+        
+        present(viewController, animated: true, completion: nil)
     }
 }
