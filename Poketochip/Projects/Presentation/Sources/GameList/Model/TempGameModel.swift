@@ -8,6 +8,8 @@
 import Foundation
 
 struct VersionModel {
+    // id는 PokeAPI에서 받아오기
+    let id: Int = 0
     let name: String
     let legendaryImageURL: String
 }

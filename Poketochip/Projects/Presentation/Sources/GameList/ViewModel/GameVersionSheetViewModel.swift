@@ -7,10 +7,19 @@
 
 import Foundation
 
+import RxSwift
+import RxRelay
+
 final class GameVersionSheetViewModel {
     let versions: [VersionModel]
+    let selectedVersion: PublishRelay<VersionModel> = .init()
     
-    public init(versions: [VersionModel]) {
+    private let disposeBag = DisposeBag()
+    
+    public init(versions: [VersionModel], selectedVersionSubject: PublishRelay<VersionModel>) {
         self.versions = versions
+        self.selectedVersion
+            .bind(to: selectedVersionSubject)
+            .disposed(by: disposeBag)
     }
 }
