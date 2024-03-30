@@ -13,7 +13,8 @@ let project = Project.framework(
     /// 필요시 SPM 추가하기
     dependencies:
         [
-            .SPM.rxSwift
+            .SPM.rxSwift,
+            .SPM.rxCocoa
         ],
     resources: .default
 )
