@@ -101,7 +101,6 @@ final class AppInfoViewController: BaseViewController<AppInfoViewModel>, UITable
     }
 }
 
-
-#Preview {
-    AppInfoViewController(viewModel: AppInfoViewModel())
-}
+//#Preview {
+//    AppInfoViewController(viewModel: AppInfoViewModel())
+//}

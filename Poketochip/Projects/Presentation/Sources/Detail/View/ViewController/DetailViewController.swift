@@ -10,15 +10,15 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-public final class DetailViewController: UIViewController {
+public final class DetailViewController: BaseViewController<DetailViewModel> {
     // MARK: View
     private let tableView: UITableView = UITableView(frame: .zero)
     
     // MARK: ViewModel
-    private let viewModel: DetailViewModel = DetailViewModel()
+//    private let viewModel: DetailViewModel = DetailViewModel()
     
     // MARK: Rx Property
-    private let disposeBag = DisposeBag()
+//    private let disposeBag = DisposeBag()
     
     // MARK: Initialize Method
     
@@ -28,21 +28,26 @@ public final class DetailViewController: UIViewController {
         bind()
         configureUI()
     }
-}
-
-extension DetailViewController {
-    // MARK: Bind
-    private func bind() {
+    
+    override func bind() {
         // rx로 이동하기
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-    // MARK: ConfigureUI
-    private func configureUI() {
+    override func configureUI() {
         setAutoLayout()
         setAttribute()
     }
+    
+    override func setAutoLayout() {
+        self.view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
+    
 }
 
 extension DetailViewController: UITableViewDataSource {
@@ -99,14 +104,6 @@ extension DetailViewController: UITableViewDelegate {
 }
 
 extension DetailViewController {
-    private func setAutoLayout() {
-        self.view.addSubview(tableView)
-        
-        tableView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
-        }
-    }
-    
     private func setAttribute() {
         tableView.separatorInset.top = 20
         tableView.separatorStyle = .none

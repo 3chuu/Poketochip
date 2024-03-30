@@ -8,6 +8,7 @@
 import UIKit
 import Common
 import SnapKit
+import SafariServices
 
 public final class GameInformationViewController: BaseViewController<GameInformationViewModel>, UIScrollViewDelegate {
     
@@ -69,6 +70,7 @@ public final class GameInformationViewController: BaseViewController<GameInforma
         
         contentView.snp.makeConstraints {
             $0.edges.width.equalToSuperview()
+            $0.top.equalTo(scrollView.snp.top)
             $0.bottom.equalTo(productInformationSectionView.snp.bottom).offset(20)
         }
         
@@ -117,5 +119,37 @@ public final class GameInformationViewController: BaseViewController<GameInforma
         
         navigationItem.title = "DP 디아루가"
         
+    }
+    
+    override func bind() {
+        legendaryPokemonSectionView.onTapDetail
+            .bind { [weak self] in
+                self?.pushToAppDetailViewController()
+            }.disposed(by: disposeBag)
+        
+        productInformationSectionView.onTapSafariLink
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                self.openSafariViewController()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func pushToAppDetailViewController() {
+        let viewController = DetailViewController(viewModel: .init())
+        
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+// 관련링크 넘기기 but... UIButton 이외의 추가하려면 귀찮다..
+extension GameInformationViewController: SFSafariViewControllerDelegate {
+    func openSafariViewController() {
+        guard let appleUrl = URL(string: "https://www.apple.com") else { return }
+        
+        let safariViewController = SFSafariViewController(url: appleUrl)
+        safariViewController.delegate = self
+        safariViewController.modalPresentationStyle = .automatic
+        present(safariViewController, animated: true, completion: nil)
     }
 }

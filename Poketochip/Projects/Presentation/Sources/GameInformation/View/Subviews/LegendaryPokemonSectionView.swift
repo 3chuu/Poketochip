@@ -5,13 +5,15 @@
 //  Created by cha_nyeong on 1/21/24.
 //
 
-import Foundation
 import UIKit
 import Common
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
     
+    // MARK: View
     private let innerView: UIView = .init()
     
     private let titleLabel: UILabel = {
@@ -61,6 +63,18 @@ final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
         let view = TempCapsuleView(text: "드래곤", backgroundColor: .purple)
         return view
     }()
+    
+    
+    // MARK: Rx Property
+    public var onTapDetail: ControlEvent<Void> {
+        return detailButton.rx.tap
+    }
+    
+    // MARK: Bind
+    override func bind(viewModel: EmptyViewModel) {
+        super.bind(viewModel: viewModel)
+        
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

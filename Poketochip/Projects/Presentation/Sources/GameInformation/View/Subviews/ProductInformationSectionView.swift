@@ -8,6 +8,9 @@
 import UIKit
 import Common
 import SnapKit
+import RxSwift
+import RxCocoa
+import SafariServices
 
 final class ProductInformationSectionView: BaseView<EmptyViewModel> {
     
@@ -44,8 +47,8 @@ final class ProductInformationSectionView: BaseView<EmptyViewModel> {
     
     
     // 관련 링크
-    private let linkView: UIView = {
-        let view = UIView()
+    private let linkView: UIButton = {
+        let view = UIButton()
         // 이미지 설정
         let imageView: UIImageView = {
             let imageView = UIImageView()
@@ -74,12 +77,14 @@ final class ProductInformationSectionView: BaseView<EmptyViewModel> {
             $0.trailing.equalTo(imageView.snp.leading)
             $0.centerY.equalToSuperview()
         }
-        // Tap Gesture 추가
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-//        view.addGestureRecognizer(tapGesture)
-
+        
         return view
     }()
+    
+    // MARK: Rx Method
+    public var onTapSafariLink: ControlEvent<UITapGestureRecognizer> {
+        linkView.getTapControlEvent()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,5 +113,4 @@ final class ProductInformationSectionView: BaseView<EmptyViewModel> {
             $0.edges.equalToSuperview()
         }
     }
-    
 }
