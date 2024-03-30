@@ -113,4 +113,10 @@ extension PokemonListViewController: UICollectionViewDelegate, UICollectionViewD
         cell.setCell(data: PokemonCell.pokemons[indexPath.row])
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = DetailViewController(viewModel: DetailViewModel())
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }

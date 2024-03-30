@@ -5,13 +5,15 @@
 //  Created by cha_nyeong on 1/21/24.
 //
 
-import Foundation
 import UIKit
 import Common
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
     
+    // MARK: View
     private let innerView: UIView = .init()
     
     private let titleLabel: UILabel = {
@@ -62,6 +64,12 @@ final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
         return view
     }()
     
+    
+    // MARK: Rx Property
+    var onTapDetail: ControlEvent<Void> {
+        return detailButton.rx.tap
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -70,10 +78,6 @@ final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
     // MARK: Initialize Method
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func configureUI() {
-        setAutoLayout()
     }
     
     override func setAutoLayout() {

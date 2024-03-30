@@ -10,38 +10,42 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-public final class DetailViewController: UIViewController {
+public final class DetailViewController: BaseViewController<DetailViewModel> {
     // MARK: View
     private let tableView: UITableView = UITableView(frame: .zero)
-    
-    // MARK: ViewModel
-    private let viewModel: DetailViewModel = DetailViewModel()
-    
-    // MARK: Rx Property
-    private let disposeBag = DisposeBag()
-    
-    // MARK: Initialize Method
     
     // MARK: LifeCycle Method
     public override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
-        configureUI()
     }
-}
-
-extension DetailViewController {
-    // MARK: Bind
-    private func bind() {
+    
+    override func bind() {
         // rx로 이동하기
+        super.bind()
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-    // MARK: ConfigureUI
-    private func configureUI() {
-        setAutoLayout()
-        setAttribute()
+    override func setAutoLayout() {
+        super.setAutoLayout()
+        
+        self.view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
+    
+    override func setAttributes() {
+        super.setAttributes()
+        
+        tableView.separatorInset.top = 20
+        tableView.separatorStyle = .none
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        registerCell()
     }
 }
 
@@ -99,24 +103,6 @@ extension DetailViewController: UITableViewDelegate {
 }
 
 extension DetailViewController {
-    private func setAutoLayout() {
-        self.view.addSubview(tableView)
-        
-        tableView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
-        }
-    }
-    
-    private func setAttribute() {
-        tableView.separatorInset.top = 20
-        tableView.separatorStyle = .none
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        
-        registerCell()
-    }
-    
     private func registerCell() {
         tableView.register(DetailMainTableViewCell.self, forCellReuseIdentifier: DetailMainTableViewCell.cellId)
         tableView.register(DetailInfoTableViewCell.self, forCellReuseIdentifier: DetailInfoTableViewCell.cellId)

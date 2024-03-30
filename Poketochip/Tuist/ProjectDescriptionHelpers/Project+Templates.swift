@@ -7,7 +7,7 @@ import ProjectDescription
 extension Project {
     
     static let bundleID = "com.zgiyo"
-    static let iosVersion = "16.0"
+    static let iosVersion = "17.0"
     
     /// Helper function to create the Project for this ExampleApp
     public static func app(
@@ -57,7 +57,8 @@ extension Project {
                     infoPlist: .file(path: .relativeToRoot("SupportingFiles/Info.plist")),
                     sources: ["Sources/**"],
                     resources: resources,
-                    dependencies: dependencies
+                    dependencies: dependencies,
+                    environmentVariables: ["IDEPreferLogStreaming": .init(stringLiteral: "YES")]
                 ),
                 Target(
                     name: "\(name)Tests",
@@ -69,7 +70,8 @@ extension Project {
                     sources: "Tests/**",
                     dependencies: [
                         .target(name: "\(name)")
-                    ]
+                    ],
+                    environmentVariables: ["IDEPreferLogStreaming": .init(stringLiteral: "YES")]
                 )
             ],
             schemes: schemes
