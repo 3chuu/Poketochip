@@ -14,33 +14,21 @@ public final class DetailViewController: BaseViewController<DetailViewModel> {
     // MARK: View
     private let tableView: UITableView = UITableView(frame: .zero)
     
-    // MARK: ViewModel
-//    private let viewModel: DetailViewModel = DetailViewModel()
-    
-    // MARK: Rx Property
-//    private let disposeBag = DisposeBag()
-    
-    // MARK: Initialize Method
-    
     // MARK: LifeCycle Method
     public override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
-        configureUI()
     }
     
     override func bind() {
         // rx로 이동하기
+        super.bind()
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-    override func configureUI() {
-        setAutoLayout()
-        setAttribute()
-    }
-    
     override func setAutoLayout() {
+        super.setAutoLayout()
+        
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -48,6 +36,17 @@ public final class DetailViewController: BaseViewController<DetailViewModel> {
         }
     }
     
+    override func setAttributes() {
+        super.setAttributes()
+        
+        tableView.separatorInset.top = 20
+        tableView.separatorStyle = .none
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        registerCell()
+    }
 }
 
 extension DetailViewController: UITableViewDataSource {
@@ -104,16 +103,6 @@ extension DetailViewController: UITableViewDelegate {
 }
 
 extension DetailViewController {
-    private func setAttribute() {
-        tableView.separatorInset.top = 20
-        tableView.separatorStyle = .none
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        
-        registerCell()
-    }
-    
     private func registerCell() {
         tableView.register(DetailMainTableViewCell.self, forCellReuseIdentifier: DetailMainTableViewCell.cellId)
         tableView.register(DetailInfoTableViewCell.self, forCellReuseIdentifier: DetailInfoTableViewCell.cellId)

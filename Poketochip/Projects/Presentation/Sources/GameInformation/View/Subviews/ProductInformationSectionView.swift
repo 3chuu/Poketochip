@@ -82,22 +82,13 @@ final class ProductInformationSectionView: BaseView<EmptyViewModel> {
     }()
     
     // MARK: Rx Method
-    public var onTapSafariLink: ControlEvent<UITapGestureRecognizer> {
+    var onTapSafariLink: ControlEvent<UITapGestureRecognizer> {
         linkView.getTapControlEvent()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureUI()
     }
     
     // MARK: Initialize Method
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func configureUI() {
-        setAutoLayout()
     }
     
     override func setAutoLayout() {

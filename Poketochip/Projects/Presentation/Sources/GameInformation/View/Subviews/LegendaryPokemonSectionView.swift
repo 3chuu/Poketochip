@@ -66,14 +66,8 @@ final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
     
     
     // MARK: Rx Property
-    public var onTapDetail: ControlEvent<Void> {
+    var onTapDetail: ControlEvent<Void> {
         return detailButton.rx.tap
-    }
-    
-    // MARK: Bind
-    override func bind(viewModel: EmptyViewModel) {
-        super.bind(viewModel: viewModel)
-        
     }
     
     override init(frame: CGRect) {
@@ -84,10 +78,6 @@ final class LegendaryPokemonSectionView: BaseView<EmptyViewModel> {
     // MARK: Initialize Method
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func configureUI() {
-        setAutoLayout()
     }
     
     override func setAutoLayout() {
