@@ -39,6 +39,15 @@ public final class GameListViewController: BaseViewController<GameListViewModel>
             .withUnretained(self)
             .bind(onNext: { $0.0.pushToAppInfoViewController() })
             .disposed(by: disposeBag)
+        
+        viewModel.selectedGameVersion
+            .withUnretained(self)
+            .bind(onNext: {
+                let viewController = $0.0.viewModel.nextViewController
+                viewController.defaultIndexRelay.accept(0)
+                $0.0.navigationController?.pushViewController(viewController, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func setAutoLayout() {
@@ -85,7 +94,7 @@ extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = GameVersionSheetViewController(viewModel: GameVersionSheetViewModel(versions: GameModel.tempGames[indexPath.row].versions))
+        let viewController = GameVersionSheetViewController(viewModel: GameVersionSheetViewModel(versions: GameModel.tempGames[indexPath.row].versions, selectedVersionSubject: self.viewModel.selectedGameVersion))
  
         let detentIdentifier = UISheetPresentationController.Detent.Identifier("customDetent")
         let customDetent = UISheetPresentationController.Detent.custom(identifier: detentIdentifier) { _ in

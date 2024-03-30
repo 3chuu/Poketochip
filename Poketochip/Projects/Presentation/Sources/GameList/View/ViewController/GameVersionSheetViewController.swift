@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Common
 
 final class GameVersionSheetViewController: BaseViewController<GameVersionSheetViewModel> {
     private let versionTableView: UITableView = {
@@ -61,6 +62,7 @@ extension GameVersionSheetViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("넘어가기!!")
+        viewModel.selectedVersion.accept(viewModel.versions[indexPath.row])
+        self.dismiss(animated: true)
     }
 }

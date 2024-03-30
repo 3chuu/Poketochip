@@ -117,9 +117,14 @@ public final class CustomTabBarController: UITabBarController, UINavigationContr
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func viewDidLoad() {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
     // MARK: LifeCycle Method
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         isViewAppeared = true
     }
     
