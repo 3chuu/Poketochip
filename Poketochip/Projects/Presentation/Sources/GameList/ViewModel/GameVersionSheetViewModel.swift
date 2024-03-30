@@ -16,6 +16,7 @@ final class GameVersionSheetViewModel {
     
     private let disposeBag = DisposeBag()
     
+    // coordinator 쓸 시 public 제거하기
     public init(versions: [VersionModel], selectedVersionSubject: PublishRelay<VersionModel>) {
         self.versions = versions
         self.selectedVersion

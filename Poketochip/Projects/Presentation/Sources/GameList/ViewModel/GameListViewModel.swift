@@ -22,5 +22,6 @@ public final class GameListViewModel {
     )
     let selectedGameVersion: PublishRelay<VersionModel> = .init()
     
+    // coordinator 쓸 시 public 제거하기
     public init() { }
 }

@@ -10,6 +10,7 @@ import Foundation
 final class GameVersionViewModel {
     let version: VersionModel
     
+    // coordinator 쓸 시 public 제거하기
     public init(version: VersionModel) {
         self.version = version
     }
