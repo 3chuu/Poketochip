@@ -86,10 +86,6 @@ final class ProductInformationSectionView: BaseView<EmptyViewModel> {
         linkView.getTapControlEvent()
     }
     
-    // MARK: Initialize Method
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func setAutoLayout() {
         super.setAutoLayout()

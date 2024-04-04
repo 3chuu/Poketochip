@@ -10,7 +10,12 @@ import ProjectDescriptionHelpers
 
 let project = Project.framework(
     name: Module.domain.name, 
+    packages: [
+        .rxSwift,
+        .swiftyJSON
+    ],
     dependencies: [
-        .SPM.rxSwift
+        .package(product: "RxCocoa"),
+        .package(product: "RxSwift"),
     ]
 )
