@@ -12,6 +12,7 @@ extension Project {
     /// Helper function to create the Project for this ExampleApp
     public static func app(
         name: String,
+        packages: [Package] = [],
         dependencies: [TargetDependency] = [],
         resources: ProjectDescription.ResourceFileElements? = nil
     ) -> Project {
@@ -19,6 +20,7 @@ extension Project {
             name: name,
             product: .app,
             bundleID: bundleID + "\(name)",
+            packages: packages,
             dependencies: dependencies,
             resources: resources
         )
@@ -27,12 +29,14 @@ extension Project {
 
 extension Project {
     public static func framework(name: String,
+                                 packages: [Package] = [],
                                  dependencies: [TargetDependency] = [],
                                  resources: ProjectDescription.ResourceFileElements? = nil
     ) -> Project {
         return .project(name: name,
                         product: .framework,
                         bundleID: bundleID + ".\(name)",
+                        packages: packages,
                         dependencies: dependencies,
                         resources: resources)
     }
@@ -42,11 +46,13 @@ extension Project {
         product: Product,
         bundleID: String,
         schemes: [Scheme] = [],
+        packages: [Package] = [],
         dependencies: [TargetDependency] = [],
         resources: ProjectDescription.ResourceFileElements? = nil
     ) -> Project {
         return Project(
             name: name,
+            packages: packages,
             targets: [
                 Target(
                     name: name,

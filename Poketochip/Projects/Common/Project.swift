@@ -11,10 +11,16 @@ import ProjectDescriptionHelpers
 let project = Project.framework(
     name: Module.common.name,
     /// 필요시 SPM 추가하기
+    packages: [
+        .rxSwift,
+        .snapKit,
+        .firebase
+    ],
     dependencies:
         [
-            .SPM.rxSwift,
-            .SPM.rxCocoa
+            .package(product: "SnapKit"),
+            .package(product: "RxCocoa"),
+            .package(product: "RxSwift"),
         ],
     resources: .default
 )

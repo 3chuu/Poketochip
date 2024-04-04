@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SnapKit
+import FirebaseCore
 
 class AViewController: UIViewController {
 
