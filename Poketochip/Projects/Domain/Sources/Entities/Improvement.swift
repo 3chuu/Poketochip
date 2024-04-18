@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Improvement: Codable {
+public struct Improvement {
     public let title: String
     public let senderEmail: String?
     public let content: String

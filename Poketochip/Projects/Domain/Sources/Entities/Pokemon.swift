@@ -8,7 +8,7 @@
 import Foundation
 import Common
 
-public struct Pokemon: PokemonInterface, Codable {
+public struct Pokemon: PokemonInterface {
     public var number: Int
     public var name: String
     public var imageName: Int

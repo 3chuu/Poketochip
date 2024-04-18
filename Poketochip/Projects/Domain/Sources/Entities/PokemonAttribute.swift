@@ -8,7 +8,7 @@
 import Foundation
 import Common
 
-public struct PokemonAttribute: Codable {
+public struct PokemonAttribute {
     public let classification: PokemonClassification
     public let type: PokemonTypeEnum
     public let height: Double
@@ -16,11 +16,11 @@ public struct PokemonAttribute: Codable {
     public let characteristic: Characteristic
 }
 
-public enum PokemonClassification: Codable {
+public enum PokemonClassification {
     case 분류
 }
 
 
-public enum Characteristic: Codable {
+public enum Characteristic {
     case 특성
 }

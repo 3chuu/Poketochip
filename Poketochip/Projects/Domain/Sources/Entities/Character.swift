@@ -8,7 +8,7 @@
 import Foundation
 import Common
 
-public struct Character: Codable {
+public struct Character {
     public let imageName: String
     public let characterName: String
 }

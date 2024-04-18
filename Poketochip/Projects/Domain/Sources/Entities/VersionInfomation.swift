@@ -8,7 +8,7 @@
 import Foundation
 import Common
 
-public struct VersionInformation: Codable {
+public struct VersionInformation {
     public let legendaryPokemon: Pokemon
     public let protagonists: [Character]
     public let partnerPokemon: [Pokemon]

@@ -7,6 +7,6 @@
 
 import Foundation
 
-public struct AppVersion: Codable {
+public struct AppVersion {
     public let appVersion: String
 }

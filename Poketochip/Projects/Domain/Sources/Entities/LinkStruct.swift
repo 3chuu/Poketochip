@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Faq: Codable, Linkable {
+public struct Faq: Linkable {
     public let linkUrl: String
     
     func canOpenUrl(linkUrl: String) {
@@ -15,7 +15,7 @@ public struct Faq: Codable, Linkable {
     }
 }
 
-public struct Term: Codable, Linkable {
+public struct Term: Linkable {
     public let linkUrl: String
     
     func canOpenUrl(linkUrl: String) {
@@ -23,7 +23,7 @@ public struct Term: Codable, Linkable {
     }
 }
 
-public struct License: Codable, Linkable {
+public struct License: Linkable {
     public let linkUrl: String
     
     func canOpenUrl(linkUrl: String) {

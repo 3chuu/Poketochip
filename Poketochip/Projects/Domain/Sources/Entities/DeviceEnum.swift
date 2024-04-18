@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Device: Codable {
+public enum Device {
     case nintendo
     case nintendoSwitch
     case nintendoGameboy

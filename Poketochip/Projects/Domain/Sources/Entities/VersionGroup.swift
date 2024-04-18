@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VersionGroup: Codable {
+public struct VersionGroup {
     public let id: Int
     public let name: String
     public let imageName: String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonStat: Codable {
+public struct PokemonStat {
     public let hp: Double
     public let attack: Double
     public let defense: Double

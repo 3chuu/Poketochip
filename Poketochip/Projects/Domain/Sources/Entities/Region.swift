@@ -9,7 +9,7 @@ import Foundation
 import Common
 
 
-public struct Region: Codable {
+public struct Region {
     public let imageName: String
     public let regionName: String
     public let description: String

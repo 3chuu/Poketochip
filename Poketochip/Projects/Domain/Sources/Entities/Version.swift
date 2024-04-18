@@ -7,12 +7,10 @@
 
 import Foundation
 
-public class Version: Codable {
+public struct Version {
     public var id: Int = 0
     public var name: String = ""
     public var pokemonImageName: String = ""
-    
-    public init() { }
     
     public init(id: Int, name: String, pokemonImageName: String) {
         self.id = id
@@ -27,13 +25,8 @@ protocol VersionProtocol {
     var versionName: String { get }
 }
 
-public class SelectedVersion: VersionProtocol {
-    static let shared = SelectedVersion()
-    
+public struct SelectedVersion: VersionProtocol {
     public var id: Int = 0
     public var generation: Int = 0
     public var versionName: String = ""
-    public var version = Version()
-    
-    private init() {}
 }

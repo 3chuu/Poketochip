@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ProductInformation: Codable {
+public struct ProductInformation {
     public let imageName: String
     public let name: String
     public let releaseDate: Date
