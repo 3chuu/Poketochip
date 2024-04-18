@@ -16,19 +16,19 @@ struct PokemonCell {
     let number: Int
     let name: String
     let type: String
-    let imageURL: String
+    let imageName: String
 }
 
 extension PokemonCell {
     static var pokemons: [PokemonCell] {
         return [
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
-            .init(number: 35, name: "삐삐", type: "페어리", imageURL: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png")
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png"),
+            .init(number: 35, name: "삐삐", type: "페어리", imageName: "https://podicmaster.cdn3.cafe24.com/artworks/0035.png")
         ]
     }
 }

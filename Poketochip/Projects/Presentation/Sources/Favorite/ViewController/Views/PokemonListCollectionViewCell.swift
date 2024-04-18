@@ -81,6 +81,6 @@ extension PokemonListCollectionViewCell {
         numberLabel.text = "No.00\(data.number)"
         nameLabel.text = data.name
         pokemonTypeImageView.image = UIImage(named: data.type)
-        pokemonImageView.kf.setImage(with: URL(string: data.imageURL)!)
+        pokemonImageView.kf.setImage(with: URL(string: data.imageName)!)
     }
 }

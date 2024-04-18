@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public enum PokemonTypeEnum: String {
+public enum PokemonTypeEnum: String, Codable {
     case normal = "노말"
     case fighting = "격투"
     case flying = "비행"
@@ -34,8 +34,8 @@ public enum PokemonTypeEnum: String {
 public struct PokemonType {
     public let no: Int
     public let name: PokemonTypeEnum
-    public let symbolImage: UIImage?
-    public let iconImage: UIImage?
+    public let symbolImage: UIImage
+    public let iconImage: UIImage
     
     public static let normal = PokemonType(no: 1, name: .normal, symbolImage: CommonAsset.normal.image, iconImage: CommonAsset.normalIcon.image)
     public static let fighting = PokemonType(no: 2, name: .fighting, symbolImage: CommonAsset.fighting.image, iconImage: CommonAsset.fightingIcon.image)
