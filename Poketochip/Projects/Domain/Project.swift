@@ -15,6 +15,7 @@ let project = Project.framework(
         .swiftyJSON
     ],
     dependencies: [
+      Module.common.project,
         .package(product: "RxCocoa"),
         .package(product: "RxSwift"),
     ]
