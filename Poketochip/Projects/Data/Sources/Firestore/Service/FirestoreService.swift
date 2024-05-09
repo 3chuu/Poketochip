@@ -12,10 +12,10 @@ import RxSwift
 
 import Infrastructure
 
-public final class FirestoreServiceImpl: FirestoreService {
+public final class FirestoreService: FirestoreServiceProtocol {
     public typealias FirestoreEndpoint = FirestoreEndpointRouter
     
-    public static let shared = FirestoreServiceImpl()
+    public static let shared = FirestoreService()
     private init() { }
     
     public func requestDocument<T: Decodable>(endpoint: FirestoreEndpoint, type: T.Type) -> Single<T> {
@@ -27,7 +27,7 @@ public final class FirestoreServiceImpl: FirestoreService {
     
     public func requestCollection<T: Decodable>(endpoint: FirestoreEndpoint, type: T.Type) -> Single<[T]> {
         guard let dbRef = endpoint.path as? CollectionReference else {
-            return .error(FirestoreError.documentNotFound)
+            return .error(FirestoreError.collectionNotFound)
         }
         return dbRef.getDocumentsSingle(type: type)
     }

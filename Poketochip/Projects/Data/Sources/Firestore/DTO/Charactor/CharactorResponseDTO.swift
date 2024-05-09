@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CharactorResponseDTO: Decodable {
-    public let imageURL: String
-    public let name: String
+struct CharactorResponseDTO: Decodable {
+    let imageURL: String
+    let name: String
 }

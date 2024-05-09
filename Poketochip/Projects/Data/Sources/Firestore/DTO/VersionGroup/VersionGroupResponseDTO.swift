@@ -7,10 +7,9 @@
 
 import Foundation
 
-public struct VersionGroupResponseDTO: Decodable {
-    public let id: String
-    public let imageName: String
-    public let name: String
-    public let versions: [String]
-    
+struct VersionGroupResponseDTO: Decodable {
+    let id: String
+    let imageName: String
+    let name: String
+    let versions: [String]
 }

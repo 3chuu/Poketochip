@@ -18,7 +18,7 @@ public protocol FirestoreEndpoint {
     var collection: FirestoreCollection { get }
 }
 
-public extension FirestoreEndpoint{
+public extension FirestoreEndpoint {
     var firestore: Firestore {
         return Firestore.firestore()
     }
@@ -35,14 +35,14 @@ public protocol FirestoreReference {
     
 }
 
-public enum FirestorePath {
-    case collection(reference: CollectionReference)
-    case document(reference: DocumentReference)
-}
-
 extension DocumentReference: FirestoreReference { }
 extension CollectionReference: FirestoreReference { }
 
 public protocol FirestoreCollection {
     var name: String { get }
 }
+
+//public enum FirestorePath {
+//    case collection(reference: CollectionReference)
+//    case document(reference: DocumentReference)
+//}

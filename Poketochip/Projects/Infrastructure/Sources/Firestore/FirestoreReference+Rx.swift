@@ -1,5 +1,5 @@
 //
-//  RxFireStore.swift
+//  FirestoreReference+Rx.swift
 //  Infrastructure
 //
 //  Created by 윤지호 on 5/7/24.
@@ -24,7 +24,7 @@ public extension DocumentReference {
             })
             return Disposables.create()
         }
-        .handleDocument(type: type)
+        .decodeDocument(type: type)
     }
     
     func deleteSingle() -> Single<Void> {
@@ -53,12 +53,12 @@ public extension CollectionReference {
             })
             return Disposables.create()
         }
-        .handleDocuments(type: type)
+        .decodeDocuments(type: type)
     }
 }
 
 public extension PrimitiveSequence where Trait == SingleTrait, Element == DocumentSnapshot {
-    func handleDocument<T: Decodable>(type: T.Type) -> Single<T> {
+    func decodeDocument<T: Decodable>(type: T.Type) -> Single<T> {
         return flatMap { response in
             do {
                 let documentData = try response.data(as: T.self)
@@ -71,7 +71,7 @@ public extension PrimitiveSequence where Trait == SingleTrait, Element == Docume
 }
 
 public extension PrimitiveSequence where Trait == SingleTrait, Element == QuerySnapshot {
-    func handleDocuments<T: Decodable>(type: T.Type) -> Single<[T]> {
+    func decodeDocuments<T: Decodable>(type: T.Type) -> Single<[T]> {
         return flatMap { responses in
             do {
                 var result: [T] = []
