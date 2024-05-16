@@ -7,13 +7,8 @@
 
 import Foundation
 
-protocol BaseUrlProtocol {
-    var baseApiUrl: String { get }
-}
-
 enum Configs {
     enum App {
-        // 둘 중에 마음 드는 네이밍으로 가죵!
         static let baseApiUrl = "https://pokeapi.co/api/v2"
         static let pokeApiUrl = "https://pokeapi.co/api/v2"
     }
