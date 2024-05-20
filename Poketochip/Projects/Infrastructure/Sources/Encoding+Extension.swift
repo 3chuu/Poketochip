@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-extension Encodable {
+public extension Encodable {
     var requestable: Parameters {
         do {
             let data = try JSONEncoder().encode(self)

@@ -1,23 +1,25 @@
 //
-//  NetworkManager.swift
-//  Infrastructure
+//  NetworkService.swift
+//  Data
 //
-//  Created by cha_nyeong on 5/14/24.
+//  Created by cha_nyeong on 5/20/24.
 //
 
 import Foundation
 
+import Infrastructure
+
 import Alamofire
 import RxSwift
 
-protocol NetworkProtocol {
-    func request(_ model: NetworkRequestable) -> Single<NetworkManager.Response>
+public protocol NetworkProtocol {
+    func request(_ model: NetworkEndpoint) -> Single<NetworkManager.Response>
 }
 
-final class NetworkManager: NetworkProtocol {
-    typealias Response = Result<Data, NetworkError>
+public final class NetworkManager: NetworkProtocol {
+    public typealias Response = Result<Data, NetworkError>
     
-    public func request(_ model: NetworkRequestable) -> Single<Response> {
+    public func request(_ model: NetworkEndpoint) -> Single<Response> {
         .create { [weak self] single in
             do {
                 let endpoint = try model.endpoint()
