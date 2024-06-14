@@ -136,9 +136,11 @@ public final class GameInformationViewController: BaseViewController<GameInforma
     }
     
     private func pushToAppDetailViewController() {
-        let viewController = DetailViewController(viewModel: .init())
-        
-        navigationController?.pushViewController(viewController, animated: true)
+        if let navigationController = self.navigationController as? BaseNavigationController {
+            let viewController = navigationController.presentaionDIProvider.makeDetailViewController(pokemonId: 0)
+            
+            navigationController.pushViewController(viewController, animated: true)
+        }
     }
 }
 

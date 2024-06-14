@@ -6,39 +6,70 @@
 //
 
 import Foundation
+import Domain
+
 import RxSwift
+import RxCocoa
 
-protocol DetailViewModelProtocol {
-  associatedtype Input
-  associatedtype Output
-  
-  func transform(input: Input) -> Output
-}
-
-public final class DetailViewModel: DetailViewModelProtocol {
-  let pokemon = SamplePokemon()
-  
-  var dataSouce: [DetailCellCase] {
-    let info1 = DetailCellCase.main(pokemon)
-    let info2 = DetailCellCase.info(pokemon.info)
-    let info3 = DetailCellCase.acquisitionPath(pokemon.acquisition)
-    let info4 = DetailCellCase.evelution(pokemon.evolution)
-    let info5 = DetailCellCase.stat(pokemon.stat)
+public final class DetailViewModel: BaseViewModelProtocol {
+    private let getPokemonDetailUseCase: GetPokemonDetailUseCase
+//    private let likePokemonUseCase: LikePokemonUseCase
     
-    return [info1, info2, info3, info4, info5]
-  }
-  var dataSouceCount: Int {
-    dataSouce.count
-  }
-
-  struct Input {
+    let pokemon = SamplePokemon()
     
-  }
-  struct Output {
+    let pokemonReply = PublishSubject<PokemonDetail>()
+        
+    var dataSouce: [DetailCellCase] {
+        let info1 = DetailCellCase.main(pokemon)
+        let info2 = DetailCellCase.info(pokemon.info)
+        let info3 = DetailCellCase.acquisitionPath(pokemon.acquisition)
+        let info4 = DetailCellCase.evelution(pokemon.evolution)
+        let info5 = DetailCellCase.stat(pokemon.stat)
+        
+        return [info1, info2, info3, info4, info5]
+    }
+    var dataSouceCount: Int {
+        dataSouce.count
+    }
     
-  }
-  
-  func transform(input: Input) -> Output {
-    return Output()
-  }
+    public init(getPokemonDetailUseCase: GetPokemonDetailUseCase, pokemonId: Int) {
+        self.getPokemonDetailUseCase = getPokemonDetailUseCase
+    }
+    
+    struct Input {
+        let viewDidLoad: Observable<Void>
+        let touchBackPokemonEvent: Observable<Void>
+        let touchFrontPokemonEvent: Observable<Void>
+        let touchLikeEvent: Observable<Bool>
+    }
+    struct Output {
+        let pokemon: Observable<PokemonDetail>
+    }
+    
+    func transform(input: Input) -> Output {
+        _ = input.viewDidLoad
+            .map { _ in
+                
+            }
+        
+        _ = input.touchBackPokemonEvent
+            .map { _ in
+                
+            }
+        
+        _ = input.touchFrontPokemonEvent
+            .map { _ in
+                
+            }
+        
+        _ = input.touchLikeEvent
+            .flatMap { bool -> Observable<Void> in
+                print("like - \(bool)")
+                return .just(())
+            }
+        
+        return Output(
+            pokemon: pokemonReply.asObservable()
+        )
+    }
 }

@@ -115,8 +115,11 @@ extension PokemonListViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = DetailViewController(viewModel: DetailViewModel())
-        navigationController?.pushViewController(viewController, animated: true)
+        if let navigationController = self.navigationController as? BaseNavigationController {
+            let viewController = navigationController.presentaionDIProvider.makeDetailViewController(pokemonId: 0)
+            
+            navigationController.pushViewController(viewController, animated: true)
+        }
     }
     
 }

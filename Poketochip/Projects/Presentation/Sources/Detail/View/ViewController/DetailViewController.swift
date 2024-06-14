@@ -19,9 +19,31 @@ public final class DetailViewController: BaseViewController<DetailViewModel> {
         super.viewDidLoad()
     }
     
+    // MARK: Touch Event
+    private let viewDidLoadReply: PublishRelay<Void> = .init()
+    private let touchBackPokemonReply: PublishRelay<Void> = .init()
+    private let touchFrontPokemonReply: PublishRelay<Void> = .init()
+    private let touchLikeReply: PublishRelay<Bool> = .init()
+    
+    //MARK: Bind
     override func bind() {
         // rx로 이동하기
         super.bind()
+        let input = DetailViewModel.Input(
+            viewDidLoad: viewDidLoadReply.asObservable(),
+            touchBackPokemonEvent: touchBackPokemonReply.asObservable(),
+            touchFrontPokemonEvent: touchFrontPokemonReply.asObservable(),
+            touchLikeEvent: touchLikeReply.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.pokemon
+            .bind(with: self) { owner, pokemon in
+                owner.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -67,6 +89,20 @@ extension DetailViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.setData(samplePokemon)
+            
+            cell.touchEventReply
+                .bind(with: self) { owner, event in
+                    switch event {
+                    case .like(let bool):
+                        owner.touchLikeReply.accept(bool)
+                    case .back:
+                        owner.touchBackPokemonReply.accept(())
+                    case .foront:
+                        owner.touchBackPokemonReply.accept(())
+                    }
+                }
+                .disposed(by: cell.disposeBag)
+            
             return cell
         case .info(let samplePokemonInfo):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailInfoTableViewCell.cellId, for: indexPath) as? DetailInfoTableViewCell else {
