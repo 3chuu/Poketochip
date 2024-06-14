@@ -7,6 +7,9 @@
 
 import UIKit
 import Common
+
+import RxSwift
+import RxCocoa
 import SnapKit
 
 final class DetailMainTableViewCell: UITableViewCell {
@@ -67,14 +70,54 @@ final class DetailMainTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
+    private var isLiked: Bool = false {
+        didSet {
+            if isLiked {
+                favoriteButton.tintColor = .yellow
+            } else {
+                favoriteButton.tintColor = .gray
+            }
+        }
+    }
+    
+    var disposeBag = DisposeBag()
+    private let cellDisposeBag = DisposeBag()
+    
+    let touchEventReply: PublishRelay<TouchEvent> = .init()
+    enum TouchEvent {
+        case like(Bool)
+        case back
+        case foront
+    }
+    
+    private func bind() {
+        favoriteButton.rx.tap
+            .do { [weak self] _ in
+                self?.isLiked.toggle()
+            }
+            .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .map {  [weak self] _ in
+                return TouchEvent.like(self?.isLiked ?? false)
+            }
+            .bind(to: touchEventReply)
+            .disposed(by: cellDisposeBag)
+            
+    }
+    
     // MARK: ConfigureUI()
-    func configureUI() {
+    private func configureUI() {
         setAutoLayout()
     }
     
@@ -84,17 +127,23 @@ final class DetailMainTableViewCell: UITableViewCell {
         pokemonImageView.image = data.image
         introduceLabel.text = data.introduce
     }
+    
+    func updateLikeButton(isLiked: Bool) {
+       
+    }
 }
 
 extension DetailMainTableViewCell {
     private func setAutoLayout() {
-        addSubview(numberLabel)
-        addSubview(nameLabel)
-        addSubview(favoriteButton)
-        addSubview(pokemonImageView)
-        addSubview(previousPokemonButton)
-        addSubview(nextPokemonButton)
-        addSubview(introduceLabel)
+        contentView.addSubviews(
+            numberLabel,
+            nameLabel,
+            favoriteButton,
+            pokemonImageView,
+            previousPokemonButton,
+            nextPokemonButton,
+            introduceLabel
+        )
 
         numberLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(36)

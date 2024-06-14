@@ -17,6 +17,10 @@ public protocol NetworkProtocol {
 }
 
 public final class NetworkManager: NetworkProtocol {
+    public static let shared = NetworkManager()
+    
+    private init() { }
+    
     public typealias Response = Result<Data, NetworkError>
     
     public func request(_ model: NetworkEndpoint) -> Single<Response> {
