@@ -23,7 +23,7 @@ public final class NetworkManager: NetworkProtocol {
     
     public typealias Response = Result<Data, NetworkError>
     
-    public func request(_ model: NetworkEndpoint) -> Single<Response> {
+    public func request<T:Decodable> (_ model: NetworkEndpoint) -> Single<Result<T, NetworkError>> {
         .create { [weak self] single in
             do {
                 let endpoint = try model.endpoint()
@@ -35,7 +35,8 @@ public final class NetworkManager: NetworkProtocol {
                     method: model.method,
                     parameters: parameters,
                     headers: model.headers
-                ).response { [single] response in
+                )
+                .responseDecodable(of: T.self) { [single] response in
                     switch response.result {
                     case .success(let data):
                         print("""
@@ -65,15 +66,6 @@ public final class NetworkManager: NetworkProtocol {
                         single(.failure(NetworkError.unexpectedResponse))
                         return
                     }
-                    print("""
-                    --------------------    success  ----------------------
-                    url: \(endpoint)
-                    header: \(model.headers)
-                    param: \(parameters)
-                    success: \(response)
-                    --------------------------------------------------------
-                    """)
-                    single(.success(.success(data)))
                 }
                 return Disposables.create()
             } catch {
@@ -100,9 +92,5 @@ extension NetworkManager {
         default:
             debugPrint("** \(error.errorDescription!) occurs")
         }
-    }
-    
-    private func debugError() {
-        
     }
 }
