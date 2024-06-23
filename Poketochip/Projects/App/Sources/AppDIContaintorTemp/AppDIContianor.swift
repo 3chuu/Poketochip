@@ -28,4 +28,10 @@ public final class AppDIContianor: PresentaionDIProvider {
         )
         return DetailViewController(viewModel: viewModel)
     }
+    
+    public func makeBagViewController() -> BagViewController {
+        let viewModel = BagViewModel()
+        
+        return BagViewController(viewModel: viewModel)
+    }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BagItemProtocol {
+public protocol BagItemProtocol {
     var id: Int { get }
     var name: String { get }
     var imageName: String { get }
