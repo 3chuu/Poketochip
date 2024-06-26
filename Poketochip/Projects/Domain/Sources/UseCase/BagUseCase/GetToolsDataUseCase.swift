@@ -33,8 +33,4 @@ public final class DefaultGetToolsDataUseCase: GetToolsDataUseCase {
     public init(bagsRepository: BagsRepository) {
         self.bagsRepository = bagsRepository
     }
-
-    public func execute(pokemonId: Int) -> Observable<PokemonDetail?> {
-        return .just(nil)
-    }
 }
