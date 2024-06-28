@@ -21,6 +21,6 @@ public final class DefaultGetPokemonDetailUseCase: GetPokemonDetailUseCase {
     }
     
     public func execute(pokemonId: Int) -> Observable<PokemonDetail?> {
-        return .just(nil)
+        return networkRepository
     }
 }

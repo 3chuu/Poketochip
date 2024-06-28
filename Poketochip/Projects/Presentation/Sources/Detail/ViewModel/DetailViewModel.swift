@@ -48,8 +48,13 @@ public final class DetailViewModel: BaseViewModelProtocol {
     
     func transform(input: Input) -> Output {
         _ = input.viewDidLoad
-            .map { _ in
-                
+            .withUnretained(self)
+            .flatMap { owner, _ -> Observable<PokemonDetail?> in
+                return owner.getPokemonDetailUseCase.execute(pokemonId: 1)
+            }
+            .withUnretained(self)
+            .map { owner, pokemonDetail in
+                owner.pokemonReply.onNext(pokemonDetail!)
             }
         
         _ = input.touchBackPokemonEvent
