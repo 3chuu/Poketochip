@@ -15,6 +15,7 @@ import Infrastructure
 public enum NetworkEndpointRouter {
     case get(requestDTO: Encodable)
     case post(requestDTO: Encodable)
+    case getPokemonDetail(requestDTO: PokemonDetailRequestDTO)
 }
 
 extension NetworkEndpointRouter: NetworkEndpoint {
@@ -27,12 +28,14 @@ extension NetworkEndpointRouter: NetworkEndpoint {
             return ""
         case .post(let dto):
             return ""
+        case .getPokemonDetail(let dto):
+            return "/pokemon/\(dto.idOrName)"
         }
     }
     
     public var method: Alamofire.HTTPMethod {
         switch self {
-        case .get:
+        case .get, .getPokemonDetail:
             return .get
         case .post:
             return .post

@@ -13,17 +13,15 @@ import Alamofire
 import RxSwift
 
 public protocol NetworkProtocol {
-    func request(_ model: NetworkEndpoint) -> Single<NetworkManager.Response>
+    func request<T: Decodable>(_ model: NetworkEndpoint, reponseType: T.Type) -> Single<T>
 }
 
 public final class NetworkManager: NetworkProtocol {
     public static let shared = NetworkManager()
     
     private init() { }
-    
-    public typealias Response = Result<Data, NetworkError>
-    
-    public func request(_ model: NetworkEndpoint) -> Single<Response> {
+        
+    public func request<T: Decodable>(_ model: NetworkEndpoint, reponseType: T.Type) -> Single<T> {
         .create { [weak self] single in
             do {
                 let endpoint = try model.endpoint()
@@ -36,16 +34,32 @@ public final class NetworkManager: NetworkProtocol {
                     parameters: parameters,
                     headers: model.headers
                 ).response { [single] response in
+                    
                     switch response.result {
                     case .success(let data):
-                        print("""
-                        --------------------    success  ----------------------
-                        url: \(endpoint)
-                        header: \(model.headers)
-                        param: \(parameters)
-                        success: \(response)
-                        --------------------------------------------------------
-                        """)
+                        
+                        guard let data = data else {
+                            single(.failure(NetworkError.unexpectedResponse))
+                            return
+                        }
+                        
+                        do {
+                            let decodedData = try JSONDecoder().decode(reponseType.self, from: data)
+                            single(.success(decodedData))
+                            
+                            print("""
+                            --------------------    success  ----------------------
+                            url: \(endpoint)
+                            header: \(model.headers)
+                            param: \(parameters)
+                            success: \(response)
+                            --------------------------------------------------------
+                            """)
+                            
+                        } catch {
+                            single(.failure(NetworkError.decodeError))
+                        }
+                                                
                     case .failure(let error):
                         print("""
                         ----------------------   error  ------------------------
@@ -56,24 +70,9 @@ public final class NetworkManager: NetworkProtocol {
                         response: \(String(data: response.data ?? Data(), encoding: .utf8) ?? "")
                         --------------------------------------------------------
                         """)
-                    }
-                    
-                    if let error = response.error {
+                        
                         single(.failure(NetworkError.response(error)))
                     }
-                    guard let data = response.data else {
-                        single(.failure(NetworkError.unexpectedResponse))
-                        return
-                    }
-                    print("""
-                    --------------------    success  ----------------------
-                    url: \(endpoint)
-                    header: \(model.headers)
-                    param: \(parameters)
-                    success: \(response)
-                    --------------------------------------------------------
-                    """)
-                    single(.success(.success(data)))
                 }
                 return Disposables.create()
             } catch {

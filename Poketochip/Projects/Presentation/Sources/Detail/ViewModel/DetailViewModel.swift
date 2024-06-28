@@ -43,13 +43,16 @@ public final class DetailViewModel: BaseViewModelProtocol {
         let touchLikeEvent: Observable<Bool>
     }
     struct Output {
-        let pokemon: Observable<PokemonDetail>
+        let pokemon: Observable<PokemonDetail?>
     }
     
     func transform(input: Input) -> Output {
-        _ = input.viewDidLoad
-            .map { _ in
-                
+        let viewDidLoadObservable = input.viewDidLoad
+        
+        let viewDidLoad = viewDidLoadObservable
+            .withUnretained(self)
+            .flatMap { owner, _ -> Observable<PokemonDetail?> in
+                return owner.getPokemonDetailUseCase.execute(pokemonId: 1)
             }
         
         _ = input.touchBackPokemonEvent
@@ -69,7 +72,7 @@ public final class DetailViewModel: BaseViewModelProtocol {
             }
         
         return Output(
-            pokemon: pokemonReply.asObservable()
+            pokemon: viewDidLoad
         )
     }
 }
