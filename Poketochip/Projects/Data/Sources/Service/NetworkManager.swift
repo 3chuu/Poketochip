@@ -43,15 +43,6 @@ public final class NetworkManager: NetworkProtocol {
                             return
                         }
                         
-                        print("""
-                        --------------------    success  ----------------------
-                        url: \(endpoint)
-                        header: \(model.headers)
-                        param: \(parameters)
-                        success: \(response)
-                        --------------------------------------------------------
-                        """)
-                        
                         do {
                             let decodedData = try JSONDecoder().decode(reponseType.self, from: data)
                             single(.success(decodedData))
@@ -65,24 +56,7 @@ public final class NetworkManager: NetworkProtocol {
                             --------------------------------------------------------
                             """)
                             
-                        } catch let DecodingError.dataCorrupted(context) {
-                            print(context)
-                        } catch let DecodingError.keyNotFound(key, context) {
-                            print("Key '\(key)' not found:", context.debugDescription)
-                            print("codingPath:", context.codingPath)
-                        } catch let DecodingError.valueNotFound(value, context) {
-                            print("Value '\(value)' not found:", context.debugDescription)
-                            print("codingPath:", context.codingPath)
-                        } catch let DecodingError.typeMismatch(type, context)  {
-                            print("Type '\(type)' mismatch:", context.debugDescription)
-                            print("codingPath:", context.codingPath)
                         } catch {
-                            print("error: ", error)
-                        } catch {
-                            
-                            print("--------------------------------------------------------")
-                            
-                            print(error)
                             single(.failure(NetworkError.decodeError))
                         }
                                                 
