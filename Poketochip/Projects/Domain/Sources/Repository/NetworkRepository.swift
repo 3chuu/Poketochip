@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 public protocol NetworkRepository {
-    func getPokemonDetil(pokemonId: Int) -> Observable<PokemonDetail>
+    func getPokemonDetil(pokemonId: Int) -> Observable<PokemonDetail?>
 }

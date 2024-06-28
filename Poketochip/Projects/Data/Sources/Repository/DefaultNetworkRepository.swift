@@ -17,10 +17,14 @@ public final class DefaultNetworkRepository: NetworkRepository {
         self.networkManager = networkManager
     }
     
-    public func getPokemonDetil(pokemonId: Int) -> Observable<PokemonDetail> {
+    public func getPokemonDetil(pokemonId: Int) -> Observable<PokemonDetail?> {
         let requestDTO: PokemonDetailRequestDTO = .init(idOrName: "\(pokemonId)")
         let endpoint: NetworkEndpointRouter = .getPokemonDetail(requestDTO: requestDTO)
-        return networkManager.request(endpoint)
+        return networkManager.request(endpoint, reponseType: PokemonDetailResponseDTO.self)
             .asObservable()
+            .map { response in
+                print(response)
+                return nil
+            }
     }
 }

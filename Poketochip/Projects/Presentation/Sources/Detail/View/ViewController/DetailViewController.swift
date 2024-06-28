@@ -17,6 +17,7 @@ public final class DetailViewController: BaseViewController<DetailViewModel> {
     // MARK: LifeCycle Method
     public override func viewDidLoad() {
         super.viewDidLoad()
+        viewDidLoadReply.accept(())
     }
     
     // MARK: Touch Event
@@ -39,9 +40,9 @@ public final class DetailViewController: BaseViewController<DetailViewModel> {
         let output = viewModel.transform(input: input)
         
         output.pokemon
-            .bind(with: self) { owner, pokemon in
+            .subscribe(with: self) { owner, pokemon in
                 owner.tableView.reloadData()
-            }
+            }            
             .disposed(by: disposeBag)
         
         tableView.dataSource = self

@@ -29,7 +29,7 @@ extension NetworkEndpointRouter: NetworkEndpoint {
         case .post(let dto):
             return ""
         case .getPokemonDetail(let dto):
-            return "/\(dto.idOrName)"
+            return "/pokemon/\(dto.idOrName)"
         }
     }
     
